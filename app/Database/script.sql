@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS roles (
     name VARCHAR(255) NOT NULL,
 );
 
--- Create table users (add here deleted at and archive)
+-- Create table users 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS tags (
     picture VARCHAR(255) NOT NULL
 );
 
--- Create table Wikis
+-- Create table Wikis (add here deleted at and archive)
 CREATE TABLE IF NOT EXISTS wikis (
     id INT AUTO_INCREMENT PRIMARY KEY,
     picture VARCHAR(255) NOT NULL,
@@ -46,11 +46,14 @@ CREATE TABLE IF NOT EXISTS wikis (
     content TEXT NOT NULL,
     read_min INT,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    date_deleted TIMESTAMP NULL DEFAULT NULL,
+    status TEXT DEFAULT 'verified',
     user_id INT,
     category_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
 
 -- Table Wikis et Tags (relation M to M)
 CREATE TABLE IF NOT EXISTS wikis_tags (
