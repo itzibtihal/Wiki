@@ -1,6 +1,6 @@
 <?php
 
-namespace MyApp\Model;
+namespace App\Model;
 
 use App\Dao\DaoImpl\DaoImplementation;
 use App\Entities\Tag;
@@ -150,5 +150,5 @@ class TagModel extends DaoImplementation
 
 
 
-    
+
 }
