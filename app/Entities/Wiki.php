@@ -12,6 +12,8 @@ class Wiki
     private $status;
     private $userId;
     private $categoryId;
+    private $categoryName;
+    private $tags = []; 
 
     public function __construct($picture, $title, $content, $readMin,$creationDate,$dateDeleted,$status, $userId, $categoryId)
     {
@@ -24,7 +26,7 @@ class Wiki
         $this->status = $status;
         $this->userId = $userId;
         $this->categoryId = $categoryId;
-        
+        $this->categoryName = null;
     }
 
  
@@ -54,6 +56,16 @@ class Wiki
         return $this->readMin;
     }
 
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function setTags(array $tags)
+    {
+        $this->tags = $tags;
+    }
+
     public function getCreationDate()
     {
         return $this->creationDate;
@@ -79,7 +91,16 @@ class Wiki
         return $this->categoryId;
     }
 
-    
+    public function getCategoryName()
+    {
+        return $this->categoryName;
+    }
+
+    public function setCategoryName($categoryName)
+    {
+        $this->categoryName = $categoryName;
+    }
+
     public function setId($id)
     {
         $this->id = $id;

@@ -19,10 +19,10 @@
             <div class="list-group list-group-flush my-3">
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
-                <a href="Categories.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-layer-group me-2"></i>Categories</a>
-                <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-hashtag me-2"></i>Tags</a>
-                <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-book me-2 "></i>Verified Wikis</a>
-                <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>Archived Wikis</a>
+                <a href="Categories" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i class="fas fa-layer-group me-2"></i>Categories</a>
+                <a href="Tags" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-hashtag me-2"></i>Tags</a>
+                <a href="Wikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-book me-2 "></i>Verified Wikis</a>
+                <a href="ArchivedWikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>Archived Wikis</a>
                 <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-feather me-2"></i>Wiki's Authors</a>
                 
                 <!-- <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i

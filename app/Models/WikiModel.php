@@ -238,6 +238,46 @@ class WikiModel extends DaoImplementation
     }
 
 
+    // Add a new method to WikiModel
+public function getCategoryNameById($categoryId)
+{
+    $query = "SELECT name FROM categories WHERE id = :categoryId";
+    $statement = $this->getConnection()->prepare($query);
+    $statement->bindParam(":categoryId", $categoryId, PDO::PARAM_INT);
+    $statement->execute();
+
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+        return $result['name'];
+    } else {
+        return null; // or handle the case where the category with the given ID is not found
+    }
+}
+
+public function getTagsForWiki($wikiId)
+    {
+        $query = "SELECT t.id, t.label
+                  FROM tags t
+                  INNER JOIN wikis_tags wt ON t.id = wt.id_tag
+                  WHERE wt.id_wiki = :wikiId";
+        $statement = $this->getConnection()->prepare($query);
+        $statement->bindParam(":wikiId", $wikiId, PDO::PARAM_INT);
+        $statement->execute();
+
+        $tags = [];
+
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $tags[] = [
+                'id' => $row['id'],
+                'label' => $row['label'],
+            ];
+        }
+
+        return $tags;
+    }
+
+
     // public function delete( $wiki): void
     // {
     //     try {

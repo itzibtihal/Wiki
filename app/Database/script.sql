@@ -39,6 +39,20 @@ CREATE TABLE IF NOT EXISTS tags (
 );
 
 -- Create table Wikis (add here deleted at and archive)
+-- CREATE TABLE IF NOT EXISTS wikis (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     picture VARCHAR(255) NOT NULL,
+--     title VARCHAR(255) NOT NULL,
+--     content TEXT NOT NULL,
+--     read_min INT,
+--     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     date_deleted TIMESTAMP NULL DEFAULT NULL,
+--     status TEXT DEFAULT 'verified',
+--     user_id INT,
+--     category_id INT,
+--     FOREIGN KEY (user_id) REFERENCES users(user_id),
+--     FOREIGN KEY (category_id) REFERENCES categories(id)
+-- );
 CREATE TABLE IF NOT EXISTS wikis (
     id INT AUTO_INCREMENT PRIMARY KEY,
     picture VARCHAR(255) NOT NULL,
@@ -50,9 +64,10 @@ CREATE TABLE IF NOT EXISTS wikis (
     status TEXT DEFAULT 'verified',
     user_id INT,
     category_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),  
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
 
 
 -- Table Wikis et Tags (relation M to M)

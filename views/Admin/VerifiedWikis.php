@@ -19,10 +19,10 @@
             <div class="list-group list-group-flush my-3">
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
-                <a href="Categories.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold "><i class="fas fa-layer-group me-2"></i>Categories</a>
+                <a href="Categories" class="list-group-item list-group-item-action bg-transparent second-text fw-bold "><i class="fas fa-layer-group me-2"></i>Categories</a>
                 <a href="Tags" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-hashtag me-2"></i>Tags</a>
-                <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-book me-2 "></i>Verified Wikis</a>
-                <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>Archived Wikis</a>
+                <a href="Wikis" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-book me-2 "></i>Verified Wikis</a>
+                <a href="ArchivedWikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>Archived Wikis</a>
                 <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-feather me-2"></i>Wiki's Authors</a>
 
                 <!-- <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -61,26 +61,30 @@
             </nav>
 
             <div class="container-fluid px-4">
-              
-                <div class="row my-5">
-                    <h3 class="fs-4 mb-3 text-white">All Verified Wiki's</h3>
-                    <div class="col">
-
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="..." alt="Wiki's image">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
+    <div class="row my-5">
+        <h3 class="fs-4 mb-3 text-white">All Verified Wiki's</h3>
+        <?php foreach ($wikis as $wiki) : ?>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <!-- Assuming you have a method in Wiki entity to get the image URL -->
+                    <img class="card-img-top" src="/WIKI/public/img/<?= $wiki->getPicture(); ?>" alt="Wiki's image">
+                    <div class="card-body">
+                        <h4 class="card-title"><?= $wiki->getTitle(); ?></h4>
+                        <h6 class="card-text">Min to read: <?= $wiki->getReadMin(); ?> <sup>minutes</sup> </h6>
+                        <h6 class="card-text">Date: <?= $wiki->getCreationDate(); ?></h6>
+                        <h6 class="card-text">Category: <?= $wiki->getCategoryName(); ?></h6>
+                        <p class="card-text"><?= $wiki->getContent(); ?></p>
+                        <p class="card-text">Tags: <?= implode(', ', array_column($wiki->getTags(), 'label')); ?> </p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="btn btn-primary">Archive this Wiki</a>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
         </div>
     </div>
     <!-- /#page-content-wrapper -->

@@ -19,6 +19,7 @@ $router->setRoutes([
         'UpdateTag' => ['TagController', 'getUpdateTag'],
         'ArchivedWikis' => ['WikiController', 'index'],
         'Wikis' => ['WikiController', 'index'],
+        'ArchivedWikis' => ['WikiController', 'getArchivedWikis'],
         
     ],
 
