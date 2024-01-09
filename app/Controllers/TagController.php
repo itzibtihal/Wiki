@@ -28,7 +28,9 @@ class TagController
     public function getUpdateTag()
     {
         $tagId = $_GET['id'];
+
         $existingTag = $this->tagModel->getById($tagId);
+        // var_dump($existingTag);
         require_once "../../views/Admin/Tags/update.php";
     }
 
@@ -36,7 +38,8 @@ class TagController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $label = $_POST['label'];
-            $tag = new Tag($label);
+            $id = $_POST['id'];
+            $tag = new Tag($id,$label);
             
             $this->tagModel->save($tag);
 
@@ -48,10 +51,10 @@ class TagController
 
     public function updateTag()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tagId = $_POST['tag_id'];
             $existingTag = $this->tagModel->getById($tagId);
-
             if (!$existingTag) {
                 echo 'Tag not found.';
                 return;
@@ -62,7 +65,7 @@ class TagController
 
             $this->tagModel->update($existingTag);
 
-            header('Location: /WIKI/Tags');
+            header('Location: Tags');
             exit();
         }
 
@@ -70,18 +73,28 @@ class TagController
     }
 
     public function destroyTag()
-    {
-        $tagId = $_GET['id'];
-        $existingTag = $this->tagModel->getById($tagId);
+{
+    $tagId = isset($_POST['tag_id']) ? $_POST['tag_id'] : null;
+    var_dump($tagId); 
 
-        if (!$existingTag) {
-            echo 'Tag not found.';
-            return;
-        }
-
-        $this->tagModel->delete($existingTag);
-        header('Location: /WIKI/Tags');
+    if ($tagId === null) {
+        echo 'Tag not found.';
+        return;
     }
+
+    $existingTag = $this->tagModel->getById($tagId);
+
+    if (!$existingTag) {
+        echo 'Tag not found.';
+        return;
+    }
+
+    $this->tagModel->delete($existingTag);
+    header('Location: Tags');
+}
+
+    
+
 }
 
 

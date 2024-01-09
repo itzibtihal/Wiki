@@ -24,7 +24,7 @@
                 <a href="Wikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-book me-2 "></i>Verified Wikis</a>
                 <a href="ArchivedWikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>Archived Wikis</a>
                 <a href="WikiAuthors" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-feather me-2"></i>Wiki's Authors</a>
-                
+
                 <!-- <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-map-marker-alt me-2"></i>Outlet</a> -->
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i class="fas fa-power-off me-2"></i>Logout</a>
@@ -81,14 +81,20 @@
                                         <td><?= $tag->getLabel(); ?></td>
                                         <td>
 
-                                        <a href="UpdateTag?id=<?= $tag->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
-                                        <a href="delete.php?id=<?= $tag->getId(); ?>" class="link-dark"><i class="fas fa-trash-alt fs-5 me-3"></i></a>
+                                            <a href="UpdateTag?id=<?= $tag->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
+
+                                            <form method="post" action="deleteTag">
+                                                <input type="hidden" name="tag_id" value="<?= $tag->getId(); ?>">
+                                                <button type="submit" class="btn btn-link link-dark">
+                                                    <i class="fas fa-trash-alt fs-5 me-3"></i>
+                                                </button>
+                                            </form>
 
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
 
-                               
+
                             </tbody>
                         </table>
                         </table>

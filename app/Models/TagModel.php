@@ -27,6 +27,7 @@ class TagModel extends DaoImplementation
 
             if ($result) {
                 return new Tag(
+                    $result['id'],
                     $result['label']
                 );
             } else {
@@ -50,6 +51,7 @@ class TagModel extends DaoImplementation
 
             foreach ($results as $result) {
                 $tag = new Tag(
+                    $result['id'],
                     $result['label']
                 );
 

@@ -8,10 +8,10 @@ class Tag
     private $label;
    
 
-    public function __construct($label)
-    {
+    public function __construct($id,$label)
+    { 
+        $this->id = $id;
         $this->label = $label;
-       
     }
 
     public function getId()
