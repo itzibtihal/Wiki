@@ -31,7 +31,34 @@ class WikiController
         require_once "../../views/Admin/VerifiedWikis.php";
     }
 
+    
+    public function archiveWiki()
+    {
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $wikiId = $_POST['wiki_id'];
+            
+            $existingWiki = $this->wikiModel->getById($wikiId);
+            echo $existingWiki->getId();
 
+            if (!$existingWiki) {
+                echo 'Wiki not found.';
+                return;
+            }
+            
+            $this->wikiModel->archiveWiki($existingWiki); 
+            header('location:Wikis');
+        
+            exit();
+        }
+
+       
+        echo 'Invalid request.';
+    }
+
+
+    
+    
     public function getArchivedWikis()
     {
         // $tags = $this->wikiModel->getAll();

@@ -25,6 +25,7 @@ class WikiModel extends DaoImplementation
 
             if ($result) {
                 return new Wiki(
+                    $result['id'],
                     $result['picture'],
                     $result['title'],
                     $result['content'],
@@ -45,7 +46,7 @@ class WikiModel extends DaoImplementation
 
     public function getAll(): array
     {
-        $query = "SELECT * FROM $this->tableName WHERE status = 'verified' AND date_deleted IS NULL";
+        $query = "SELECT * FROM $this->tableName WHERE status = 'verified' /* AND date_deleted IS NULL */";
         $statement = $this->getConnection()->query($query);
 
         if ($statement) {
@@ -54,6 +55,7 @@ class WikiModel extends DaoImplementation
 
             foreach ($results as $result) {
                 $wiki = new Wiki(
+                    $result['id'],
                     $result['picture'],
                     $result['title'],
                     $result['content'],
@@ -86,6 +88,7 @@ class WikiModel extends DaoImplementation
 
             foreach ($results as $result) {
                 $archivedWiki = new Wiki(
+                    $result['id'],
                     $result['picture'],
                     $result['title'],
                     $result['content'],
@@ -189,7 +192,7 @@ class WikiModel extends DaoImplementation
                       WHERE id = :id";
             $statement = $this->getConnection()->prepare($query);
 
-            $statement->bindParam(':id', $wiki->getId(), PDO::PARAM_INT);
+            $statement->bindParam(':id', $wiki->getId() );
 
             $result = $statement->execute();
 
@@ -201,9 +204,14 @@ class WikiModel extends DaoImplementation
         }
     }
 
+    public function archiveWiki($wiki): void
+    {
+        $this->delete($wiki);
+    }
+
     public function countVerifiedWikis(): int
     {
-        $query = "SELECT COUNT(*) FROM $this->tableName WHERE status = 'verified' AND date_deleted IS NULL";
+        $query = "SELECT COUNT(*) FROM $this->tableName WHERE status = 'verified' /* OR date_deleted IS NULL */";
         $statement = $this->getConnection()->query($query);
 
         if ($statement) {

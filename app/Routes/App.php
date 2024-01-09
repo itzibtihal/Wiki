@@ -30,6 +30,7 @@ $router->setRoutes([
         'UpdateCategory' => ['CategoryController', 'updateCategory'],
         'AddTag' => ['TagController', 'addTag'],
         'UpdateTag' => ['TagController', 'updateTag'],
+        'ArchiveWiki' => ['WikiController', 'archiveWiki'],
     ]
 ]);
 

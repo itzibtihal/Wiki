@@ -15,8 +15,9 @@ class Wiki
     private $categoryName;
     private $tags = []; 
 
-    public function __construct($picture, $title, $content, $readMin,$creationDate,$dateDeleted,$status, $userId, $categoryId)
+    public function __construct($id,$picture, $title, $content, $readMin,$creationDate,$dateDeleted,$status, $userId, $categoryId)
     {
+        $this->id = $id;
         $this->picture = $picture;
         $this->title = $title;
         $this->content = $content;
