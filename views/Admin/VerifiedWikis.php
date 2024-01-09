@@ -81,7 +81,7 @@
                             <input type="hidden" name="wiki_id" value="<?= $wiki->getId(); ?>">
                             <button type="submit" class="btn btn-primary">Archive this Wiki</button>
                         </form>
-</div>
+                        </div>
                     </div>
                 </div>
             </div>

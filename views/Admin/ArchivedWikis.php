@@ -62,30 +62,32 @@
 
             <div class="container-fluid px-4">
 
-                <div class="row my-5">
-                    <h3 class="fs-4 mb-3 text-white">All Archived Wiki's</h3>
-                    <div class="col">
+            <div class="row my-5">
+        <h3 class="fs-4 mb-3 text-white">All Verified Wiki's</h3>
+        <?php foreach ($wikis as $wiki) : ?>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <!-- Assuming you have a method in Wiki entity to get the image URL -->
+                    <img class="card-img-top" src="/WIKI/public/img/<?= $wiki->getPicture(); ?>" alt="Wiki's image">
+                    <div class="card-body">
+                        <h4 class="card-title"><?= $wiki->getTitle(); ?></h4>
+                        <h6 class="card-text">Min to read: <?= $wiki->getReadMin(); ?> <sup>minutes</sup> </h6>
+                        <h6 class="card-text"> Archive Date: <?= $wiki->getDateDeleted(); ?></h6>
+                        <h6 class="card-text">Category: <?= $wiki->getCategoryName(); ?></h6>
+                        <p class="card-text"><?= $wiki->getContent(); ?></p>
+                        <p class="card-text">Tags: <?= implode(', ', array_column($wiki->getTags(), 'label')); ?> </p>
+                        <div class="d-flex justify-content-center">
+                        <form method="post" action="ArchiveWiki">
 
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="..." alt="Wiki's image">
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <h6 class="card-text">Min to raed</h6>
-                                <h6 class="card-text">Date</h6>
-                                <h6 class="card-text">category</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text"> tags</p>
-                                <div class="d-flex justify-content-center">
-                                    <a href="#" class="btn btn-primary">Verify this Wiki</a>
-                                </div>
-
-                            </div>
+                            <input type="hidden" name="wiki_id" value="<?= $wiki->getId(); ?>">
+                            <button type="submit" class="btn btn-primary">Archive this Wiki</button>
+                        </form>
                         </div>
-
-
                     </div>
                 </div>
-
+            </div>
+        <?php endforeach; ?>
+    </div>
             </div>
         </div>
     </div>

@@ -61,8 +61,16 @@ class WikiController
     
     public function getArchivedWikis()
     {
-        // $tags = $this->wikiModel->getAll();
-        
+        $wikis = $this->wikiModel->getAllArchived();
+        foreach ($wikis as $wiki) {
+            $categoryName = $this->wikiModel->getCategoryNameById($wiki->getCategoryId());
+            $wiki->setCategoryName($categoryName); // Assuming you have a setCategoryName method in your Wiki entity
+        }
+
+        foreach ($wikis as $wiki) {
+            $tags = $this->wikiModel->getTagsForWiki($wiki->getId());
+            $wiki->setTags($tags); // Assuming you have a setTags method in your Wiki entity
+        }
         require_once "../../views/Admin/ArchivedWikis.php";
     }
 
