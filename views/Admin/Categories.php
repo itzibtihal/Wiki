@@ -20,7 +20,7 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
                 <a href="Categories.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold active"><i class="fas fa-layer-group me-2"></i>Categories</a>
-                <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-hashtag me-2"></i>Tags</a>
+                <a href="Tags" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-hashtag me-2"></i>Tags</a>
                 <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-book me-2 "></i>Verified Wikis</a>
                 <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>Archived Wikis</a>
                 <a href="Tags.php" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-feather me-2"></i>Wiki's Authors</a>
@@ -37,7 +37,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0 text-white">Dashboard</h2>
+                    <h2 class="fs-2 m-0 text-white">Tags</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
             </nav>
 
             <div class="container-fluid px-4">
-                <a href="" class="btn btn-dark mb-3">Add Category </a>
+                <a href="addCatego" class="btn btn-dark mb-3">Add Category </a>
                 <div class="row my-5">
                     <h3 class="fs-4 mb-3 text-white">All Categories</h3>
                     <div class="col">
@@ -80,10 +80,11 @@
                                     <tr>
                                         <td><?= $category->getId(); ?></td>
                                         <td><?= $category->getName(); ?></td>
-                                        <td><?= $category->getPicture(); ?></td>
+                                        <td> <img src="/WIKI/public/img/<?= $category->getPicture(); ?>" alt="" width="40px"></td>
                                         <td>
 
-                                            <a href="edit.php?id=<?= $category->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
+                                        <a href="updateCatego?id=<?= $category->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
+
                                             <a href="delete.php?id=<?= $category->getId(); ?>" class="link-dark"><i class="fas fa-trash-alt fs-5 me-3"></i></a>
 
                                         </td>

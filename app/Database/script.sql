@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS categories (
 -- Create table Tags
 CREATE TABLE IF NOT EXISTS tags (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    label VARCHAR(255) NOT NULL,
-    picture VARCHAR(255) NOT NULL
+    label VARCHAR(255) NOT NULL
+    
 );
 
 -- Create table Wikis (add here deleted at and archive)

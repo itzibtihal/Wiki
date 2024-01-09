@@ -16,6 +16,8 @@ class CategoryController
         $this->categoryModel = new CategoryModel();
     }
 
+
+
     public function index()
     {
 
@@ -24,10 +26,129 @@ class CategoryController
         require_once"../../views/Admin/Categories.php";
     }
 
+    public function getaddCategory()
+    {
+        require_once"../../views/Admin/Categories/add.php";
+    }
+
+    public function getupdateCategory()
+    {
+        $categoryId = $_GET['id'];
+        
+       
+        $existingCategory = $this->categoryModel->getById($categoryId);
+        
+
+        require_once"../../views/Admin/Categories/update.php";
+    }
+
+   
+
+    public function addCategory()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['name'];
+
+        
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
+        $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
+
+        
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
+            $category = new Category($name, $_FILES['picture']['name']);
+            
+            
+            $this->categoryModel->save($category);
+
+            header('Location: /WIKI/Categories');
+            exit();
+        } else {
+            echo 'Failed to upload image.';
+        }
+    }
+    require "../../views/Admin/Categories/add.php";
+}
+
+
+public function UpdateCategory()
+{
+   
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        $categoryId = $_POST['category_id'];
+        
+       
+        $existingCategory = $this->categoryModel->getById($categoryId);
+        var_dump($existingCategory);
+
+         if (!$existingCategory) {
+            echo 'Category not found.';
+            return;
+        }
+
+        
+        $name = $_POST['name'];
+
+       
+        $uploadDir = '/WIKI/public/img/';
+        $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
+
+        if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
+            
+            $existingCategory->setName($name);
+            $existingCategory->setPicture($_FILES['picture']['name']);
+
+           
+            $this->categoryModel->update($existingCategory);
+
+            header('Location: /WIKI/Categories');
+            exit();
+        } else {
+            echo 'Failed to upload image.';
+        }
+    }
+
+     
+
+    require "../../views/Admin/Categories/update.php"; 
+}
 
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function show($id)
     {
         // Display details of a specific category
@@ -84,5 +205,6 @@ class CategoryController
         $this->categoryModel->delete($category);
 
         // Redirect to the index page or show a success message
+        require_once"../../views/Admin/Categories.php";
     }
 }

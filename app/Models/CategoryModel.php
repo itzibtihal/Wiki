@@ -14,27 +14,26 @@ class CategoryModel extends DaoImplementation
     }
 
     public function getById($id)
-    {
-        $query = "SELECT * FROM $this->tableName WHERE id = :id";
-        $statement = $this->getConnection()->prepare($query);
-        $statement->bindParam(":id", $id, PDO::PARAM_INT);
-        $statement->execute();
+{
+    $query = "SELECT * FROM $this->tableName WHERE id = :id";
+    $statement = $this->getConnection()->prepare($query);
+    $statement->bindParam(":id", $id, PDO::PARAM_INT);
 
-        if ($statement) {
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
+    if ($statement->execute()) {
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-            if ($result) {
-                return new Category(
-                    $result['name'],
-                    $result['picture']
-                );
-            } else {
-                return null;
-            }
+        if ($result) {
+            return new Category(
+                $result['name'],
+                $result['picture']
+            );
         } else {
             return null;
         }
+    } else {
+        return null;
     }
+}
 
     public function getAll(): array
     {

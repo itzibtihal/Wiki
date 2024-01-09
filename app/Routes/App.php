@@ -12,7 +12,11 @@ $router->setRoutes([
 
         'home' => ['HomeController', 'index'],
         'Categories' => ['CategoryController', 'index'],
+        'addCatego' => ['CategoryController', 'getaddCategory'],
+        'updateCatego' => ['CategoryController', 'getupdateCategory'],
         'Tags' => ['TagController', 'index'],
+        'addtag' => ['TagController', 'getaddTag'],
+        'UpdateTag' => ['TagController', 'getUpdateTag'],
         'ArchivedWikis' => ['WikiController', 'index'],
         'Wikis' => ['WikiController', 'index'],
         
@@ -21,7 +25,10 @@ $router->setRoutes([
 
 
     'POST' => [
-        '' => ['', ''],
+        'AddCategory' => ['CategoryController', 'addCategory'],
+        'UpdateCategory' => ['CategoryController', 'updateCategory'],
+        'AddTag' => ['TagController', 'addTag'],
+        'UpdateTag' => ['TagController', 'updateTag'],
     ]
 ]);
 
