@@ -20,6 +20,7 @@ $router->setRoutes([
         'ArchivedWikis' => ['WikiController', 'index'],
         'Wikis' => ['WikiController', 'index'],
         'ArchivedWikis' => ['WikiController', 'getArchivedWikis'],
+        'WikiAuthors' => ['UserController', 'getWikiAuthors'],
         
     ],
 

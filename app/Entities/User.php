@@ -16,8 +16,9 @@ class User
     private $description;
     private $roleId;
 
-    public function __construct($name, $email, $profile, $password, $linkedinProfile, $instagramProfile, $xProfile, $description, $roleId)
+    public function __construct($id,$name, $email, $profile, $password, $linkedinProfile, $instagramProfile, $xProfile, $description, $roleId)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->profile = $profile;
