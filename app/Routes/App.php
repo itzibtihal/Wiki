@@ -11,8 +11,10 @@ $router->setRoutes([
     'GET' => [
 
         'home' => ['HomeController', 'index'],
-        
-
+        'Categories' => ['CategoryController', 'index'],
+        'Tags' => ['TagController', 'index'],
+        'ArchivedWikis' => ['WikiController', 'index'],
+        'Wikis' => ['WikiController', 'index'],
         
     ],
 

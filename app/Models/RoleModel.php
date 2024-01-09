@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use App\Dao\DaoImpl\DaoImplementation;
 use App\Entities\Role;

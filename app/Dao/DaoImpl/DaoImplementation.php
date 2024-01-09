@@ -2,11 +2,12 @@
 
 namespace App\Dao\DaoImpl;
 
+
 use App\Database\DbConnection;
 use App\Dao\DaoInterface;
 use PDO;
 
-class   DaoImplementation implements DaoInterface
+class DaoImplementation implements DaoInterface
 {
     protected $db;
     protected $tableName;
