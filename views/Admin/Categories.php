@@ -85,8 +85,12 @@
 
                                         <a href="updateCatego?id=<?= $category->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
 
-                                            <a href="delete.php?id=<?= $category->getId(); ?>" class="link-dark"><i class="fas fa-trash-alt fs-5 me-3"></i></a>
-
+                                        <form method="post" action="deleteCatego">
+                                                <input type="hidden" name="category_id" value="<?= $category->getId(); ?>">
+                                                <button type="submit" class="btn btn-link link-dark">
+                                                    <i class="fas fa-trash-alt fs-5 me-3"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

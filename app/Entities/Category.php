@@ -8,8 +8,9 @@ class Category
     private $name;
     private $picture;
 
-    public function __construct($name, $picture)
+    public function __construct($id,$name, $picture)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->picture = $picture;
     }

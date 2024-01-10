@@ -29,6 +29,7 @@ $router->setRoutes([
     'POST' => [
         'AddCategory' => ['CategoryController', 'addCategory'],
         'UpdateCategory' => ['CategoryController', 'updateCategory'],
+        'deleteCatego' => ['CategoryController', 'destroy'],
         'AddTag' => ['TagController', 'addTag'],
         'UpdateTag' => ['TagController', 'updateTag'],
         'deleteTag' => ['TagController', 'destroyTag'],

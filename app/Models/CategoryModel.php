@@ -24,6 +24,7 @@ class CategoryModel extends DaoImplementation
 
         if ($result) {
             return new Category(
+                $result['id'],
                 $result['name'],
                 $result['picture']
             );
@@ -46,6 +47,7 @@ class CategoryModel extends DaoImplementation
 
             foreach ($results as $result) {
                 $category = new Category(
+                    $result['id'],
                     $result['name'],
                     $result['picture']
                 );

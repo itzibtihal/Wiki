@@ -47,6 +47,7 @@ class CategoryController
     public function addCategory()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'];
         $name = $_POST['name'];
 
         
@@ -59,7 +60,7 @@ class CategoryController
         }
 
         if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
-            $category = new Category($name, $_FILES['picture']['name']);
+            $category = new Category($id,$name, $_FILES['picture']['name']);
             
             
             $this->categoryModel->save($category);
@@ -120,91 +121,37 @@ public function UpdateCategory()
 
 
 
+    public function destroy()
+{
+   
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+       
+        $categoryId = isset($_POST['category_id']) ? $_POST['category_id'] : null;
 
+        
+        if ($categoryId === null) {
+            echo 'Category not found.';
+            return;
+        }
 
+        
+        $category = $this->categoryModel->getById($categoryId);
 
+       
+        if (!$category) {
+            echo 'Category not found.';
+            return;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function show($id)
-    {
-        // Display details of a specific category
-        $category = $this->categoryModel->getById($id);
-        // Your code to display category details in the view
-    }
-
-    public function create()
-    {
-        // Display a form to create a new category
-        // Your code to display the form in the view
-    }
-
-    public function store()
-    {
-        // Store a new category in the database
-        $categoryData = [
-            'name' => $_POST['name'],  // Assuming you have a form field with name attribute 'name'
-            'picture' => $_POST['picture'],  // Assuming you have a form field with name attribute 'picture'
-        ];
-
-        $category = new Category($categoryData['name'], $categoryData['picture']);
-        $this->categoryModel->save($category);
-
-        // Redirect to the index page or show a success message
-    }
-
-    public function edit($id)
-    {
-        // Display a form to edit an existing category
-        $category = $this->categoryModel->getById($id);
-        // Your code to display the edit form with pre-filled values in the view
-    }
-
-    public function update($id)
-    {
-        // Update an existing category in the database
-        $categoryData = [
-            'name' => $_POST['name'],
-            'picture' => $_POST['picture'],
-        ];
-
-        $category = new Category($categoryData['name'], $categoryData['picture']);
-        $category->setId($id);
-        $this->categoryModel->update($category);
-
-        // Redirect to the index page or show a success message
-    }
-
-    public function destroy($id)
-    {
-        // Delete an existing category from the database
-        $category = $this->categoryModel->getById($id);
+     
         $this->categoryModel->delete($category);
 
-        // Redirect to the index page or show a success message
-        require_once"../../views/Admin/Categories.php";
+        
+        header('Location: Categories');
+    } else {
+      
+        echo 'Invalid request method.';
     }
+}
+
 }
