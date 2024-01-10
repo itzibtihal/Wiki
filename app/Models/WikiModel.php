@@ -237,6 +237,43 @@ class WikiModel extends DaoImplementation
     }
 
 
+    public function getAllWikisByUserId($userId): array
+    {
+        $query = "SELECT * FROM $this->tableName WHERE user_id = :userId AND status = 'verified' ";
+        $statement = $this->getConnection()->prepare($query);
+        $statement->bindParam(':userId', $userId, PDO::PARAM_INT);
+
+        if ($statement->execute()) {
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $wikis = [];
+
+            foreach ($results as $result) {
+                $wiki = new Wiki(
+                    $result['id'],
+                    $result['picture'],
+                    $result['title'],
+                    $result['content'],
+                    $result['read_min'],
+                    $result['creation_date'],
+                    $result['date_deleted'],
+                    $result['status'],
+                    $result['user_id'],
+                    $result['category_id']
+                );
+
+                $wiki->setId($result['id']);
+                $wikis[] = $wiki;
+            }
+
+            return $wikis;
+        } else {
+            return [];
+        }
+    }
+
+
+
+
     public function countVerifiedWikis(): int
     {
         $query = "SELECT COUNT(*) FROM $this->tableName WHERE status = 'verified' /* OR date_deleted IS NULL */";

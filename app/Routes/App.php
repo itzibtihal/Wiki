@@ -22,6 +22,7 @@ $router->setRoutes([
         'ArchivedWikis' => ['WikiController', 'getArchivedWikis'],
         'WikiAuthors' => ['UserController', 'getWikiAuthors'],
         'Dashboard' => ['HomeAdminController', 'index'],
+        'MyDash' => ['HomeAuthorController', 'index'],
         
     ],
 
