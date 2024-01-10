@@ -49,7 +49,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2 text-white"></i>Said Aabilla
+                                <i class="fas fa-user me-2 text-white"></i>Ibtihal Boukhanchouch
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -69,7 +69,7 @@
                                 <h3 class="fs-2"><?= $this->countUsersWithRoleId2(); ?></h3>
                                 <p class="fs-5">Authors</p>
                             </div>
-                            <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-feather fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
 
@@ -79,7 +79,8 @@
                                 <h3 class="fs-2"><?= $this->countAllWikis(); ?></h3>
                                 <p class="fs-5">Total Wikis</p>
                             </div>
-                            <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-newspaper fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                           
                         </div>
                     </div>
 
@@ -89,7 +90,8 @@
                                 <h3 class="fs-2"><?= $this->countWikisCreatedToday(); ?></h3>
                                 <p class="fs-5">Today's Wikis</p>
                             </div>
-                            <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-clock fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            
                         </div>
                     </div>
 
@@ -99,7 +101,8 @@
                                 <h3 class="fs-2"><?= $this->countVerifiedWikis(); ?></h3>
                                 <p class="fs-5">Verified Wikis</p>
                             </div>
-                            <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-check fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            
                         </div>
                     </div>
 
@@ -109,7 +112,8 @@
                                 <h3 class="fs-2"><?= $this->countArchivedWikis(); ?></h3>
                                 <p class="fs-5">Archived Wikis</p>
                             </div>
-                            <i class="fas fa-inbox fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-trash fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            
                         </div>
                     </div>
 
@@ -119,7 +123,7 @@
                                 <h3 class="fs-2"><?= $this->countCategories(); ?></h3>
                                 <p class="fs-5">Categories</p>
                             </div>
-                            <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-layer-group fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
 
@@ -129,7 +133,7 @@
                                 <h3 class="fs-2"><?= $this->countTags(); ?></h3>
                                 <p class="fs-5">Tags</p>
                             </div>
-                            <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <i class="fas fa-hashtag fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
                 </div>
