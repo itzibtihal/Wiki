@@ -10,7 +10,7 @@ class WikiModel extends DaoImplementation
 {
     public function __construct()
     {
-        parent::__construct("wikis"); 
+        parent::__construct("wikis");
     }
 
     public function getById($id)
@@ -111,7 +111,7 @@ class WikiModel extends DaoImplementation
     }
 
 
-    public function save( $wiki): void
+    public function save($wiki): void
     {
         try {
             $query = "INSERT INTO $this->tableName 
@@ -142,7 +142,7 @@ class WikiModel extends DaoImplementation
         }
     }
 
-    public function update( $wiki): void
+    public function update($wiki): void
     {
         try {
             $query = "UPDATE $this->tableName 
@@ -192,7 +192,7 @@ class WikiModel extends DaoImplementation
                       WHERE id = :id";
             $statement = $this->getConnection()->prepare($query);
 
-            $statement->bindParam(':id', $wiki->getId() );
+            $statement->bindParam(':id', $wiki->getId());
 
             $result = $statement->execute();
 
@@ -208,6 +208,34 @@ class WikiModel extends DaoImplementation
     {
         $this->delete($wiki);
     }
+
+    public function verify($wiki): void
+    {
+        try {
+            $query = "UPDATE $this->tableName 
+                  SET 
+                  status = 'verified',
+                  date_deleted = NULL
+                  WHERE id = :id";
+            $statement = $this->getConnection()->prepare($query);
+
+            $statement->bindParam(':id', $wiki->getId(), PDO::PARAM_INT);
+
+            $result = $statement->execute();
+
+            if (!$result) {
+                throw new \RuntimeException("Failed to update the entity in the database.");
+            }
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    public function verifyWiki($wiki): void
+    {
+        $this->verify($wiki);
+    }
+
 
     public function countVerifiedWikis(): int
     {
@@ -247,23 +275,23 @@ class WikiModel extends DaoImplementation
 
 
     // Add a new method to WikiModel
-public function getCategoryNameById($categoryId)
-{
-    $query = "SELECT name FROM categories WHERE id = :categoryId";
-    $statement = $this->getConnection()->prepare($query);
-    $statement->bindParam(":categoryId", $categoryId, PDO::PARAM_INT);
-    $statement->execute();
+    public function getCategoryNameById($categoryId)
+    {
+        $query = "SELECT name FROM categories WHERE id = :categoryId";
+        $statement = $this->getConnection()->prepare($query);
+        $statement->bindParam(":categoryId", $categoryId, PDO::PARAM_INT);
+        $statement->execute();
 
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-    if ($result) {
-        return $result['name'];
-    } else {
-        return null; // or handle the case where the category with the given ID is not found
+        if ($result) {
+            return $result['name'];
+        } else {
+            return null; // or handle the case where the category with the given ID is not found
+        }
     }
-}
 
-public function getTagsForWiki($wikiId)
+    public function getTagsForWiki($wikiId)
     {
         $query = "SELECT t.id, t.label
                   FROM tags t

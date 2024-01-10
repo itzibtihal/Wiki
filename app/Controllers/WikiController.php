@@ -21,12 +21,12 @@ class WikiController
         // var_dump($wikis);
         foreach ($wikis as $wiki) {
             $categoryName = $this->wikiModel->getCategoryNameById($wiki->getCategoryId());
-            $wiki->setCategoryName($categoryName); // Assuming you have a setCategoryName method in your Wiki entity
+            $wiki->setCategoryName($categoryName); 
         }
 
         foreach ($wikis as $wiki) {
             $tags = $this->wikiModel->getTagsForWiki($wiki->getId());
-            $wiki->setTags($tags); // Assuming you have a setTags method in your Wiki entity
+            $wiki->setTags($tags); 
         }
         require_once "../../views/Admin/VerifiedWikis.php";
     }
@@ -52,7 +52,29 @@ class WikiController
             exit();
         }
 
-       
+        echo 'Invalid request.';
+    }
+
+    public function verifyWiki()
+    {
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $wikiId = $_POST['wiki_id'];
+            
+            $existingWiki = $this->wikiModel->getById($wikiId);
+            echo $existingWiki->getId();
+
+            if (!$existingWiki) {
+                echo 'Wiki not found.';
+                return;
+            }
+            
+            $this->wikiModel->verifyWiki($existingWiki); 
+            header('location:Wikis');
+        
+            exit();
+        }
+
         echo 'Invalid request.';
     }
 

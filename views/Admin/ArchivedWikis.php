@@ -77,10 +77,10 @@
                         <p class="card-text"><?= $wiki->getContent(); ?></p>
                         <p class="card-text">Tags: <?= implode(', ', array_column($wiki->getTags(), 'label')); ?> </p>
                         <div class="d-flex justify-content-center">
-                        <form method="post" action="ArchiveWiki">
+                        <form method="post" action="verifyWiki">
 
                             <input type="hidden" name="wiki_id" value="<?= $wiki->getId(); ?>">
-                            <button type="submit" class="btn btn-primary">Archive this Wiki</button>
+                            <button type="submit" class="btn btn-primary">Verify this Wiki</button>
                         </form>
                         </div>
                     </div>
