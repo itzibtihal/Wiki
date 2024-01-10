@@ -72,6 +72,9 @@ class TagController
         require "../../views/Admin/Tags/update.php";
     }
 
+
+
+    
     public function destroyTag()
 {
     $tagId = isset($_POST['tag_id']) ? $_POST['tag_id'] : null;

@@ -80,8 +80,13 @@
                                         <td><?= $tag->getId(); ?></td>
                                         <td><?= $tag->getLabel(); ?></td>
                                         <td>
-
-                                            <a href="UpdateTag?id=<?= $tag->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
+                                        <form method="post" action="UpdateTag">
+    <input type="hidden" name="tag_id" value="<?= $tag->getId(); ?>">
+    <input type="text" name="label" value="<?= $tag->getLabel(); ?>">
+    <button type="submit" class="btn btn-link link-dark">
+        <i class="fas fa-pencil-alt fs-5 me-3"></i>
+    </button>
+</form>
 
                                             <form method="post" action="deleteTag">
                                                 <input type="hidden" name="tag_id" value="<?= $tag->getId(); ?>">
