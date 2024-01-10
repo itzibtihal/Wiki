@@ -37,7 +37,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0 text-white">Tags</h2>
+                    <h2 class="fs-2 m-0 text-white">Categories</h2>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,15 +82,20 @@
                                         <td><?= $category->getName(); ?></td>
                                         <td> <img src="/WIKI/public/img/<?= $category->getPicture(); ?>" alt="" width="40px"></td>
                                         <td>
-
-                                        <a href="updateCatego?id=<?= $category->getId(); ?>" class="link-dark"><i class="fas fa-pencil-alt fs-5 me-3"></i></a>
-
+                                         
+                                        <a href="updateCatego?id=<?= $category->getId(); ?>">update</a>
+                                        <!-- <form method="post" action="UpdateCategory">
+                                                <input type="hidden" name="category_id" value="">
+                                                <button type="submit" class="btn btn-link link-dark">
+                                                <i class="fas fa-pencil-alt fs-5 me-3"></i>
+                                                </button>
+                                        </form> -->
                                         <form method="post" action="deleteCatego">
                                                 <input type="hidden" name="category_id" value="<?= $category->getId(); ?>">
                                                 <button type="submit" class="btn btn-link link-dark">
                                                     <i class="fas fa-trash-alt fs-5 me-3"></i>
                                                 </button>
-                                            </form>
+                                        </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

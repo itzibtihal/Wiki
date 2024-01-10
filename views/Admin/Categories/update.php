@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +44,7 @@
             display: none;
         }
     </Style>
-    <title> WIKIDash  - Update Category</title>
+    <title> WIKIDash - Update Category</title>
 </head>
 
 <body>
@@ -60,12 +59,14 @@
         </div>
 
         <div class="container d-flex justify-content-center">
-        <form action="UpdateCategory" method="post" enctype="multipart/form-data" style="width:50vw; min-width:300px;">
+            <form action="UpdateCategory" method="post" enctype="multipart/form-data" style="width:50vw; min-width:300px;">
+               
+                <input type="hidden" name="category_id" value="<?php echo $existingCategory->getId(); ?>">
 
                 <div class="card">
                     <img src="/WIKI/public/img/<?php echo $existingCategory->getPicture(); ?>" alt="image" id="image">
                     <label for="input-file">update Picture</label>
-                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="picture"  required>
+                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="picture"  >
                 </div>
 
                 <div class="row mb-3">
@@ -76,14 +77,14 @@
                 </div>
 
 
-                
+
 
                 <div class="button-container">
 
-                     <br>
+                    <br>
                     <button type="submit" class="btn btn-success" name="submit" style="background-color: #959c9e; border: 2px solid black">Save</button>
                     <a href="Categories" class="btn btn-danger" style="background-color: #959c9e;  border: 2px solid black"">Cancel</a>
-            </div>
+                </div>
          </form>
       </div>
    </div>

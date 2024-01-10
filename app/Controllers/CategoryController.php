@@ -77,46 +77,48 @@ class CategoryController
 
 public function UpdateCategory()
 {
-   
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $categoryId = $_POST['category_id'];
-        
        
         $existingCategory = $this->categoryModel->getById($categoryId);
-        var_dump($existingCategory);
 
-         if (!$existingCategory) {
+        if (!$existingCategory) {
             echo 'Category not found.';
             return;
         }
 
-        
         $name = $_POST['name'];
 
-       
-        $uploadDir = '/WIKI/public/img/';
+        // Specify the directory
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
+
+        // Create the directory if it doesn't exist
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        // Specify the destination file
         $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
 
+        // Move the uploaded file to the destination
         if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
-            
             $existingCategory->setName($name);
             $existingCategory->setPicture($_FILES['picture']['name']);
 
-           
             $this->categoryModel->update($existingCategory);
 
-            header('Location: /WIKI/Categories');
+            header('Location: Categories');
             exit();
         } else {
             echo 'Failed to upload image.';
         }
     }
 
-     
-
-    require "../../views/Admin/Categories/update.php"; 
+    require "../../views/Admin/Categories/update.php";
 }
+
+
 
 
 
