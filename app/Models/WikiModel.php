@@ -273,8 +273,40 @@ class WikiModel extends DaoImplementation
         }
     }
 
+    public function countWikisCreatedToday()
+    {
 
-    // Add a new method to WikiModel
+        $currentDate = date('Y-m-d');
+
+        $query = "SELECT COUNT(*) FROM $this->tableName WHERE DATE(creation_date) = :currentDate";
+        $statement = $this->getConnection()->prepare($query);
+        $statement->bindParam(':currentDate', $currentDate);
+
+        if ($statement->execute()) {
+            return (int)$statement->fetchColumn();
+        } else {
+            return 0;
+        }
+    }
+
+    public function listLast6Wikis(): array
+    {
+        $query = "SELECT id, title, creation_date, category_id, status
+              FROM wikis
+              ORDER BY creation_date DESC
+              LIMIT 6";
+
+        $statement = $this->getConnection()->query($query);
+
+        if ($statement) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return [];
+        }
+    }
+
+
+
     public function getCategoryNameById($categoryId)
     {
         $query = "SELECT name FROM categories WHERE id = :categoryId";
@@ -287,7 +319,7 @@ class WikiModel extends DaoImplementation
         if ($result) {
             return $result['name'];
         } else {
-            return null; // or handle the case where the category with the given ID is not found
+            return null;
         }
     }
 
