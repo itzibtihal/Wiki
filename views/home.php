@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Wiki - Home </title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="/WIKI/public/css/index.css">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -86,23 +86,23 @@
                     <h3 class="headline fancy-border">
                         <span class="place-items-center">News flash</span>
                     </h3>
-                    <span class="headline-description"> ADD HERE THE TITLE OF THE LAST WIKI </span>
+                    <span class="headline-description"> <?php echo $lastInsertedWikiTitle; ?> </span>
                 </div>
 
 
                 <a href="./post.html" class="article featured-article featured-article-1">
-                    <img src="img here" alt="" class="article-image">
-                    <span class="article-category">Category here</span>
+                    <img src="/WIKI/public/img/R.jpg" alt="" class="article-image" width="100PX" height="70px">
+                    <span class="article-category">Technologies</span>
 
                     <div class="article-data-container">
 
                         <div class="article-data">
-                            <span>DATE HERE</span>
+                            <span><?php echo $lastWiki7->getCreationDate(); ?></span>
                             <span class="article-data-spacer"></span>
-                            <span> GET MINUTES HERE Min read</span>
+                            <span> <?php echo $lastWiki7->getReadMin(); ?> Min read</span>
                         </div>
 
-                        <h3 class="title article-title">GET TITLE HERE</h3>
+                        <h3 class="title article-title"><?php echo $lastWiki7->getTitle(); ?></h3>
 
                     </div>
                 </a>
@@ -110,35 +110,35 @@
 
 
                 <a href="./post.html" class="article featured-article featured-article-2">
-                    <img src="./assets/images/featured/featured-2.jpg" alt="" class="article-image">
-                    <span class="article-category">Category here</span>
+                    <img src="/WIKI/public/img/sportt.jpg" alt="" class="article-image">
+                    <span class="article-category">Sport</span>
 
                     <div class="article-data-container">
 
                         <div class="article-data">
-                            <span>DATE HERE</span>
+                            <span><?php echo $lastWiki6->getCreationDate(); ?></span>
                             <span class="article-data-spacer"></span>
-                            <span>GET MINUTES HERE Min read</span>
+                            <span><?php echo $lastWiki6->getReadMin(); ?> Min read</span>
                         </div>
 
-                        <h3 class="title article-title">GET TITLE HERE</h3>
+                        <h3 class="title article-title"><?php echo $lastWiki6->getTitle(); ?></h3>
 
                     </div>
                 </a>
 
                 <a href="./post.html" class="article featured-article featured-article-3">
-                    <img src="./assets/images/featured/featured-3.jpg" alt="" class="article-image">
-                    <span class="article-category">Category here</span>
+                    <img src="/WIKI/public/img/food.jpg" alt="" class="article-image">
+                    <span class="article-category">Food</span>
 
                     <div class="article-data-container">
 
                         <div class="article-data">
-                            <span>DATE HERE</span>
+                            <span><?php echo $lastWiki->getCreationDate(); ?></span>
                             <span class="article-data-spacer"></span>
-                            <span>GET MINUTES HERE Min read</span>
+                            <span><?php echo $lastWiki->getReadMin(); ?> Min read</span>
                         </div>
 
-                        <h3 class="title article-title">GET TITLE HERE</h3>  
+                        <h3 class="title article-title"><?php echo $lastWiki->getTitle(); ?></h3>
 
                     </div>
                 </a>
@@ -149,302 +149,228 @@
 
                 <h3 class="title featured-content-title">Trending news</h3>
 
-               
-               
-                <a href="#" class="trending-news-box">
-                    <div class="trending-news-img-box">
-                        <span class="trending-number place-items-center">01</span>
-                        <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image">
-                    </div>
-
-                    <div class="trending-news-data">
-
-                        <div class="article-data">
-                            <span>DATE HERE </span>
-                            <span class="article-data-spacer"></span>
-                            <span> GET MIN HERE Min read</span>
+                <?php foreach ($lastFiveWikis as $index => $wiki) : ?>
+                    <a href="#" class="trending-news-box">
+                        <div class="trending-news-img-box">
+                            <span class="trending-number place-items-center"><?php echo $index + 1; ?></span>
+                            <!-- You may need to adjust the image source based on your data -->
+                            <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="" class="article-image">
                         </div>
 
-                        <h3 class="title article-title">GET article title</h3>
+                        <div class="trending-news-data">
+                            <div class="article-data">
+                                <span><?php echo $wiki->getCreationDate(); ?></span>
+                                <span class="article-data-spacer"></span>
+                                <span><?php echo $wiki->getReadMin(); ?> Min read</span>
+                            </div>
 
-                    </div>
-                </a>
-
-
-                <a href="#" class="trending-news-box">
-                    <div class="trending-news-img-box">
-                        <span class="trending-number place-items-center">01</span>
-                        <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image">
-                    </div>
-
-                    <div class="trending-news-data">
-
-                        <div class="article-data">
-                            <span>DATE HERE </span>
-                            <span class="article-data-spacer"></span>
-                            <span> GET MIN HERE Min read</span>
+                            <h3 class="title article-title"><?php echo $wiki->getTitle(); ?></h3>
                         </div>
-
-                        <h3 class="title article-title">GET article title</h3>
-
-                    </div>
-                </a>
-
-
-                <a href="#" class="trending-news-box">
-                    <div class="trending-news-img-box">
-                        <span class="trending-number place-items-center">01</span>
-                        <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image">
-                    </div>
-
-                    <div class="trending-news-data">
-
-                        <div class="article-data">
-                            <span>DATE HERE </span>
-                            <span class="article-data-spacer"></span>
-                            <span> GET MIN HERE Min read</span>
-                        </div>
-
-                        <h3 class="title article-title">GET article title</h3>
-
-                    </div>
-                </a>
-
-
-                <a href="#" class="trending-news-box">
-                    <div class="trending-news-img-box">
-                        <span class="trending-number place-items-center">01</span>
-                        <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image">
-                    </div>
-
-                    <div class="trending-news-data">
-
-                        <div class="article-data">
-                            <span>DATE HERE </span>
-                            <span class="article-data-spacer"></span>
-                            <span> GET MIN HERE Min read</span>
-                        </div>
-
-                        <h3 class="title article-title">GET article title</h3>
-
-                    </div>
-                </a>
-
-                <a href="#" class="trending-news-box">
-                    <div class="trending-news-img-box">
-                        <span class="trending-number place-items-center">01</span>
-                        <img src="./assets/images/trending/trending_1.jpg" alt="" class="article-image">
-                    </div>
-
-                    <div class="trending-news-data">
-
-                        <div class="article-data">
-                            <span>DATE HERE </span>
-                            <span class="article-data-spacer"></span>
-                            <span> GET MIN HERE Min read</span>
-                        </div>
-
-                        <h3 class="title article-title">GET article title</h3>
-
-                    </div>
-                </a>
-
-
+                    </a>
+                <?php endforeach; ?>
 
                 
 
-            </div>
 
-     </div>
 
-</section>
 
-<!-- Wiki posts -->
-<section class="older-posts section">
-
-<div class="container">
-     <!-- data-name="Wiki posts" -->
-    <h2 class="title section-title" >Wiki posts</h2>
-
-    <div class="older-posts-grid-wrapper d-grid">
-
-        <a href="#" class="article d-grid">
-            <div class="older-posts-article-image-wrapper">
-                <img src="./assets/images/older_posts/older_posts_1.jpg" alt="" class="article-image">
-            </div>
-
-            <div class="article-data-container">
-
-                <div class="article-data">
-                    <span>DATE HERE</span>
-                    <span class="article-data-spacer"></span>
-                    <span>3 Min read</span>
-                </div>
-
-                <h3 class="title article-title">article title</h3>
-                <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
 
             </div>
-        </a>
 
-        <a href="#" class="article d-grid">
-            <div class="older-posts-article-image-wrapper">
-                <img src="./assets/images/older_posts/older_posts_2.jpg" alt="" class="article-image">
+        </div>
+
+    </section>
+
+    <!-- Wiki posts -->
+    <section class="older-posts section">
+
+        <div class="container">
+            <!-- data-name="Wiki posts" -->
+            <h2 class="title section-title">Wiki posts</h2>
+
+            <div class="older-posts-grid-wrapper d-grid">
+
+                <a href="#" class="article d-grid">
+                    <div class="older-posts-article-image-wrapper">
+                        <img src="./assets/images/older_posts/older_posts_1.jpg" alt="" class="article-image">
+                    </div>
+
+                    <div class="article-data-container">
+
+                        <div class="article-data">
+                            <span>DATE HERE</span>
+                            <span class="article-data-spacer"></span>
+                            <span>3 Min read</span>
+                        </div>
+
+                        <h3 class="title article-title">article title</h3>
+                        <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+
+                    </div>
+                </a>
+
+                <a href="#" class="article d-grid">
+                    <div class="older-posts-article-image-wrapper">
+                        <img src="./assets/images/older_posts/older_posts_2.jpg" alt="" class="article-image">
+                    </div>
+
+                    <div class="article-data-container">
+
+                        <div class="article-data">
+                            <span>DATE HERE</span>
+                            <span class="article-data-spacer"></span>
+                            <span>3 Min read</span>
+                        </div>
+
+                        <h3 class="title article-title"> article title</h3>
+                        <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+
+                    </div>
+                </a>
+
+
+
+                <a href="#" class="article d-grid">
+                    <div class="older-posts-article-image-wrapper">
+                        <img src="./assets/images/older_posts/older_posts_3.jpg" alt="" class="article-image">
+                    </div>
+
+                    <div class="article-data-container">
+
+                        <div class="article-data">
+                            <span>DATE HERE</span>
+                            <span class="article-data-spacer"></span>
+                            <span>3 Min read</span>
+                        </div>
+
+                        <h3 class="title article-title"> article title</h3>
+                        <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+
+                    </div>
+                </a>
+
+
+
+                <a href="#" class="article d-grid">
+                    <div class="older-posts-article-image-wrapper">
+                        <img src="./assets/images/older_posts/older_posts_4.jpg" alt="" class="article-image">
+                    </div>
+
+                    <div class="article-data-container">
+
+                        <div class="article-data">
+                            <span>DATE HERE</span>
+                            <span class="article-data-spacer"></span>
+                            <span>3 Min read</span>
+                        </div>
+
+                        <h3 class="title article-title"> article title</h3>
+                        <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+
+                    </div>
+                </a>
+
+                <a href="#" class="article d-grid">
+                    <div class="older-posts-article-image-wrapper">
+                        <img src="./assets/images/older_posts/older_posts_5.jpg" alt="" class="article-image">
+                    </div>
+
+                    <div class="article-data-container">
+
+                        <div class="article-data">
+                            <span>DATE HERE</span>
+                            <span class="article-data-spacer"></span>
+                            <span>3 Min read</span>
+                        </div>
+
+                        <h3 class="title article-title"> article title</h3>
+                        <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+
+                    </div>
+                </a>
+
+                <a href="#" class="article d-grid">
+                    <div class="older-posts-article-image-wrapper">
+                        <img src="./assets/images/older_posts/older_posts_6.jpg" alt="" class="article-image">
+                    </div>
+
+                    <div class="article-data-container">
+
+                        <div class="article-data">
+                            <span>DATE HERE</span>
+                            <span class="article-data-spacer"></span>
+                            <span>3 Min read</span>
+                        </div>
+
+                        <h3 class="title article-title">article title</h3>
+                        <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+
+                    </div>
+                </a>
+
             </div>
 
-            <div class="article-data-container">
-
-                <div class="article-data">
-                <span>DATE HERE</span>
-                    <span class="article-data-spacer"></span>
-                    <span>3 Min read</span>
-                </div>
-
-                <h3 class="title article-title"> article title</h3>
-                <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
-
-            </div>
-        </a>
-
-        <a href="#" class="article d-grid">
-            <div class="older-posts-article-image-wrapper">
-                <img src="./assets/images/older_posts/older_posts_3.jpg" alt="" class="article-image">
+            <div class="see-more-container">
+                <a href="wikiposts.php" class="btn see-more-btn place-items-center">See more <i class="ri-arrow-right-s-line"></i></i></a>
             </div>
 
-            <div class="article-data-container">
+        </div>
 
-                <div class="article-data">
-                <span>DATE HERE</span>
-                    <span class="article-data-spacer"></span>
-                    <span>3 Min read</span>
-                </div>
+    </section>
 
-                <h3 class="title article-title"> article title</h3>
-                <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
 
-            </div>
-        </a>
+    <!-- popular Cartegories -->
+    <section class="popular-tags section">
 
-        <a href="#" class="article d-grid">
-            <div class="older-posts-article-image-wrapper">
-                <img src="./assets/images/older_posts/older_posts_4.jpg" alt="" class="article-image">
-            </div>
+        <div class="container">
 
-            <div class="article-data-container">
+            <!-- data-name="Popular Categories" -->
+            <h2 class="title section-title">Popular Categories</h2>
 
-                <div class="article-data">
-                <span>DATE HERE</span>
-                    <span class="article-data-spacer"></span>
-                    <span>3 Min read</span>
-                </div>
+            <div class="popular-tags-container d-grid">
 
-                <h3 class="title article-title"> article title</h3>
-                <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+                <a href="#" class="article">
+                    <span class="tag-name">Category here</span>
+                    <img src="./assets/images/tags/travel-tag.jpg" alt="" class="article-image">
+                </a>
 
-            </div>
-        </a>
+                <a href="#" class="article">
+                    <span class="tag-name">Category here</span>
+                    <img src="./assets/images/tags/food-tag.jpg" alt="" class="article-image">
+                </a>
 
-        <a href="#" class="article d-grid">
-            <div class="older-posts-article-image-wrapper">
-                <img src="./assets/images/older_posts/older_posts_5.jpg" alt="" class="article-image">
-            </div>
+                <a href="#" class="article">
+                    <span class="tag-name">Category here</span>
+                    <img src="./assets/images/tags/technology-tag.jpg" alt="" class="article-image">
+                </a>
 
-            <div class="article-data-container">
+                <a href="#" class="article">
+                    <span class="tag-name">Category here</span>
+                    <img src="./assets/images/tags/health-tag.jpg" alt="" class="article-image">
+                </a>
 
-                <div class="article-data">
-                <span>DATE HERE</span>
-                    <span class="article-data-spacer"></span>
-                    <span>3 Min read</span>
-                </div>
+                <a href="#" class="article">
+                    <span class="tag-name">Category here</span>
+                    <img src="./assets/images/tags/nature-tag.jpg" alt="" class="article-image">
+                </a>
 
-                <h3 class="title article-title"> article title</h3>
-                <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
+                <a href="#" class="article">
+                    <span class="tag-name">Category here</span>
+                    <img src="./assets/images/tags/fitness-tag.jpg" alt="" class="article-image">
+                </a>
 
             </div>
-        </a>
 
-        <a href="#" class="article d-grid">
-            <div class="older-posts-article-image-wrapper">
-                <img src="./assets/images/older_posts/older_posts_6.jpg" alt="" class="article-image">
-            </div>
-
-            <div class="article-data-container">
-
-                <div class="article-data">
-                    <span>DATE HERE</span>
-                    <span class="article-data-spacer"></span>
-                    <span>3 Min read</span>
-                </div>
-
-                <h3 class="title article-title">article title</h3>
-                <p class="article-description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique a tempore sapiente corporis, eaque fuga placeat odit voluptatibus.</p>
-
-            </div>
-        </a>
-
-    </div>
-
-    <div class="see-more-container">
-        <a href="wikiposts.php" class="btn see-more-btn place-items-center">See more <i class="ri-arrow-right-s-line"></i></i></a>
-    </div>
-
-</div>
-
-</section>
-
- 
-<!-- popular Cartegories -->
-<section class="popular-tags section">
-
-  <div class="container">
-
-   <!-- data-name="Popular Categories" -->
-    <h2 class="title section-title" >Popular Categories</h2>
-
-    <div class="popular-tags-container d-grid">
-
-        <a href="#" class="article">
-            <span class="tag-name">Category here</span>
-            <img src="./assets/images/tags/travel-tag.jpg" alt="" class="article-image">
-        </a>
-
-        <a href="#" class="article">
-            <span class="tag-name">Category here</span>
-            <img src="./assets/images/tags/food-tag.jpg" alt="" class="article-image">
-        </a>
-
-        <a href="#" class="article">
-            <span class="tag-name">Category here</span>
-            <img src="./assets/images/tags/technology-tag.jpg" alt="" class="article-image">
-        </a>
-
-        <a href="#" class="article">
-            <span class="tag-name">Category here</span>
-            <img src="./assets/images/tags/health-tag.jpg" alt="" class="article-image">
-        </a>
-
-        <a href="#" class="article">
-            <span class="tag-name">Category here</span>
-            <img src="./assets/images/tags/nature-tag.jpg" alt="" class="article-image">
-        </a>
-
-        <a href="#" class="article">
-            <span class="tag-name">Category here</span>
-            <img src="./assets/images/tags/fitness-tag.jpg" alt="" class="article-image">
-        </a>
-
-    </div>
-
-  </div>
-</section>
+        </div>
+    </section>
 
     <!-- Popular tags -->
     <section class="popular-tags section">
 
         <div class="container">
 
-        <!-- data-name="Popular tags" -->
-            <h2 class="title section-title" >Popular tags</h2>
+            <!-- data-name="Popular tags" -->
+            <h2 class="title section-title">Popular tags</h2>
 
             <div class="popular-tags-container d-grid">
 
@@ -491,17 +417,17 @@
 
 
     <!-- Newsletter -->
-<section class="newsletter section">
+    <section class="newsletter section">
 
         <div class="container">
 
-        <!-- data-name="Newsletter" -->
-            <h2 class="title section-title" >Newsletter</h2>
+            <!-- data-name="Newsletter" -->
+            <h2 class="title section-title">Newsletter</h2>
 
             <div class="form-container-inner">
                 <h6 class="title newsletter-title">Subscribe to WIKI ' s</h6>
                 <p class="newsletter-description">Stay connected with our newsletter to uncover the latest updates,
-                     exclusive tips, and exciting opportunities delivered straight to your inbox.</p>
+                    exclusive tips, and exciting opportunities delivered straight to your inbox.</p>
 
                 <form action="" class="form">
                     <input class="form-input" type="text" placeholder="Enter your email address ...">
@@ -513,21 +439,21 @@
             </div>
 
         </div>
-</section>
+    </section>
 
 
     <!-- Footer -->
-<footer class="footer section">
+    <footer class="footer section">
 
         <div class="footer-container container d-grid">
-            
+
             <div class="company-data">
                 <a href="./index.html">
                     <h2 class="logo">WIKI</h2>
                 </a>
-                <p class="company-description"> enhance engagement by providing regular content, improve SEO, 
+                <p class="company-description"> enhance engagement by providing regular content, improve SEO,
                     all while establishing interactive communication with the audience.</p>
-                
+
                 <ul class="list social-media">
                     <li class="list-item">
                         <a href="#" class="list-link"><i class="ri-instagram-line"></i></a>
@@ -540,12 +466,12 @@
                     </li>
                 </ul>
 
-                <span class="copyright-notice">&copy;2024 WIKI.Ibtihal  All rights reserved.</span>
+                <span class="copyright-notice">&copy;2024 WIKI.Ibtihal All rights reserved.</span>
             </div>
 
             <div>
                 <h6 class="title footer-title">TOP Categories</h6>
-                
+
                 <ul class="footer-list list">
                     <li class="list-item">
                         <a href="#" class="list-link">Travel</a>
@@ -568,7 +494,7 @@
 
             <div>
                 <h6 class="title footer-title">Useful links</h6>
-                
+
                 <ul class="footer-list list">
                     <li class="list-item">
                         <a href="#" class="list-link">Home</a>
@@ -588,7 +514,7 @@
 
             <div>
                 <h6 class="title footer-title">Company</h6>
-                
+
                 <ul class="footer-list list">
                     <li class="list-item">
                         <a href="#" class="list-link">Contact us</a>
@@ -607,11 +533,11 @@
             </div>
 
         </div>
-        
-</footer>
+
+    </footer>
 
 
-    <script src="../public/js/index.js"></script>
+    <script src="/WIKI/public/js/index.js"></script>
 </body>
 
 </html>

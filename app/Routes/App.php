@@ -11,6 +11,9 @@ $router->setRoutes([
     'GET' => [
 
         'home' => ['HomeController', 'index'],
+        'homepage' => ['HomeWikiController', 'index'],
+        'homepage' => ['HomeWikiController', 'getLastWikiByCategory6'],
+       
         'Categories' => ['CategoryController', 'index'],
         'addCatego' => ['CategoryController', 'getaddCategory'],
         'updateCatego' => ['CategoryController', 'getupdateCategory'],

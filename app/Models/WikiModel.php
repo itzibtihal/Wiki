@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Dao\DaoImpl\DaoImplementation;
 use App\Entities\Wiki;
 use PDO;
+use PDOException;
 
 class WikiModel extends DaoImplementation
 {
@@ -180,7 +181,92 @@ class WikiModel extends DaoImplementation
         }
     }
 
-    
+    public function getLastWikiByCategoryId($category_id)
+    {
+        $query = "SELECT * FROM wikis WHERE  status = 'verified' AND category_id = :category_id ORDER BY creation_date DESC LIMIT 1";
+        $statement = $this->getConnection()->prepare($query);
+        $statement->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+
+        try {
+            $statement->execute();
+            $wikiData = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($wikiData) {
+                return new Wiki(
+                    $wikiData['id'],
+                    $wikiData['picture'],
+                    $wikiData['title'],
+                    $wikiData['content'],
+                    $wikiData['read_min'],
+                    $wikiData['creation_date'],
+                    $wikiData['date_deleted'],
+                    $wikiData['status'],
+                    $wikiData['user_id'],
+                    $wikiData['category_id']
+                );
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+        return null;
+    }
+
+
+    public function getLastInsertedWikiTitle()
+{
+    try {
+        $query = "SELECT title FROM wikis WHERE status = 'verified' ORDER BY creation_date DESC LIMIT 1";
+        $statement = $this->getConnection()->query($query);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result['title'] ?? null;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return null;
+    }
+}
+
+
+public function getLastFiveVerifiedWikis()
+{
+    try {
+        $query = "SELECT * FROM wikis WHERE status = 'verified' ORDER BY creation_date DESC LIMIT 5";
+        $statement = $this->getConnection()->query($query);
+
+        if ($statement) {
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $wikis = [];
+
+            foreach ($results as $result) {
+                $wiki = new Wiki(
+                    $result['id'],
+                    $result['picture'],
+                    $result['title'],
+                    $result['content'],
+                    $result['read_min'],
+                    $result['creation_date'],
+                    $result['date_deleted'],
+                    $result['status'],
+                    $result['user_id'],
+                    $result['category_id']
+                );
+
+                $wikis[] = $wiki;
+            }
+
+            return $wikis;
+        } else {
+            return [];
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return [];
+    }
+}
+
+
+
     public function saveWikiWithTags($wiki): void
     {
         try {
@@ -188,7 +274,7 @@ class WikiModel extends DaoImplementation
 
             $this->save($wiki);
 
-           
+
             $wikiId = $this->getConnection()->lastInsertId();
 
             foreach ($wiki->getTags() as $tagId) {
@@ -220,7 +306,7 @@ class WikiModel extends DaoImplementation
         }
     }
 
-    
+
     public function delete($wiki): void
     {
         try {
