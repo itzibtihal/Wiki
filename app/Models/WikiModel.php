@@ -265,6 +265,43 @@ public function getLastFiveVerifiedWikis()
     }
 }
 
+public function getLastSixVerifiedWikis()
+{
+    try {
+        $query = "SELECT * FROM wikis WHERE status = 'verified' ORDER BY creation_date DESC LIMIT 6";
+        $statement = $this->getConnection()->query($query);
+
+        if ($statement) {
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $wikis = [];
+
+            foreach ($results as $result) {
+                $wiki = new Wiki(
+                    $result['id'],
+                    $result['picture'],
+                    $result['title'],
+                    $result['content'],
+                    $result['read_min'],
+                    $result['creation_date'],
+                    $result['date_deleted'],
+                    $result['status'],
+                    $result['user_id'],
+                    $result['category_id']
+                );
+
+                $wikis[] = $wiki;
+            }
+
+            return $wikis;
+        } else {
+            return [];
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return [];
+    }
+}
+
 
 
     public function saveWikiWithTags($wiki): void

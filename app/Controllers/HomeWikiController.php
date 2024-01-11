@@ -35,6 +35,7 @@ class HomeWikiController
         $lastWiki7 = $this->wikiModel->getLastWikiByCategoryId($category_id3);
         $lastInsertedWikiTitle = $this->wikiModel->getLastInsertedWikiTitle();
         $lastFiveWikis = $this->wikiModel->getLastFiveVerifiedWikis();
+        $lastSixWikis = $this->wikiModel->getLastSixVerifiedWikis();
         require_once "../../views/home.php";
 
     }
