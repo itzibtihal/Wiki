@@ -180,8 +180,47 @@ class WikiModel extends DaoImplementation
         }
     }
 
+    
+    public function saveWikiWithTags($wiki): void
+    {
+        try {
+            $this->getConnection()->beginTransaction();
 
+            $this->save($wiki);
 
+           
+            $wikiId = $this->getConnection()->lastInsertId();
+
+            foreach ($wiki->getTags() as $tagId) {
+                $this->saveWikiTag($wikiId, $tagId);
+            }
+
+            $this->getConnection()->commit();
+        } catch (\Exception $exception) {
+            $this->getConnection()->rollBack();
+            throw $exception;
+        }
+    }
+
+    private function saveWikiTag($wikiId, $tagId): void
+    {
+        try {
+            $query = "INSERT INTO wikis_tags (id_wiki, id_tag) VALUES (:wikiId, :tagId)";
+            $statement = $this->getConnection()->prepare($query);
+            $statement->bindParam(':wikiId', $wikiId, PDO::PARAM_INT);
+            $statement->bindParam(':tagId', $tagId, PDO::PARAM_INT);
+
+            $result = $statement->execute();
+
+            if (!$result) {
+                throw new \RuntimeException("Failed to save Wiki-Tag relationship in the database.");
+            }
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    
     public function delete($wiki): void
     {
         try {

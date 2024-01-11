@@ -21,6 +21,16 @@ class UserController
         require_once "../../views/Admin/Authors.php";
     }
 
+    public function geteditProfil()
+    {
+        // $userSId= $_SESSION['userId'];
+        $userSId =2;
+        $existingUser = $this->userModel->getById($userSId);
+        require_once "../../views/Author/Myprofil.php";
+
+    }
+    
+
 
 }
 

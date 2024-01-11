@@ -23,6 +23,8 @@ $router->setRoutes([
         'WikiAuthors' => ['UserController', 'getWikiAuthors'],
         'Dashboard' => ['HomeAdminController', 'index'],
         'MyDash' => ['HomeAuthorController', 'index'],
+        'MyDashCreateWiki' => ['WikiController', 'CreateWiki'],
+        'MyProfile' => ['UserController', 'geteditProfil'],
         
     ],
 

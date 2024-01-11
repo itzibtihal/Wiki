@@ -9,6 +9,7 @@ use App\Models\WikiModel;
 class WikiController
 {
     private $wikiModel;
+    private $tagModel;
 
     public function __construct()
     {
@@ -96,7 +97,53 @@ class WikiController
         require_once "../../views/Admin/ArchivedWikis.php";
     }
 
-    
+
+    public function createWiki()
+    {
+        
+        // $userSId= $_SESSION['userId'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Process the form submission
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $readTime = $_POST['readMin'];
+            $categoryId = $_POST['categoryId'];
+            $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
+            
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
+            $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
+
+        
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
+        
+            $wiki = new Wiki(null, $_FILES['picture']['name'], $title, $content, $readTime, null, null, null, null, $categoryId);
+
+           
+            $wiki->setTags($tags);
+            
+
+            try {
+               
+                $this->wikiModel->saveWikiWithTags($wiki);
+
+                
+                header("Location: success_page.php");
+                exit();
+            } catch (\Exception $exception) {
+                
+                echo "Error: " . $exception->getMessage();
+            }
+        } 
+    }else {
+            // Display the form
+            require_once "../../views/Author/Addwiki.php";
+        }
+    }
+
 
 }
 

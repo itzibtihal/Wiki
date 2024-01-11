@@ -90,18 +90,18 @@ public function UpdateCategory()
 
         $name = $_POST['name'];
 
-        // Specify the directory
+        
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
 
-        // Create the directory if it doesn't exist
+       
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
-        // Specify the destination file
+       
         $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
 
-        // Move the uploaded file to the destination
+       
         if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
             $existingCategory->setName($name);
             $existingCategory->setPicture($_FILES['picture']['name']);
