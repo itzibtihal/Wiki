@@ -11,12 +11,15 @@ use App\Models\CategoryModel;
 class HomeWikiController
 {
     private $wikiModel;
-    private $lastWiki;
+    private $tagModel;
+    private $categoryModel;
 
 
     public function __construct()
     {
         $this->wikiModel = new WikiModel();
+        $this->tagModel = new TagModel();
+        $this->categoryModel = new CategoryModel();
     }
 
     public function index()
@@ -36,6 +39,8 @@ class HomeWikiController
         $lastInsertedWikiTitle = $this->wikiModel->getLastInsertedWikiTitle();
         $lastFiveWikis = $this->wikiModel->getLastFiveVerifiedWikis();
         $lastSixWikis = $this->wikiModel->getLastSixVerifiedWikis();
+        $lastSixTags = $this->tagModel->getLastSixTags();
+        $lastSixCategories = $this->categoryModel->getLastSixCategories();
         require_once "../../views/home.php";
 
     }

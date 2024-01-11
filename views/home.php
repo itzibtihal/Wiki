@@ -150,6 +150,7 @@
                 <h3 class="title featured-content-title">Trending news</h3>
 
                 <?php foreach ($lastFiveWikis as $index => $wiki) : ?>
+                    <input type="hidden" name="Wiki_id" value="<?= $wiki->getId(); ?>">
                     <a href="#" class="trending-news-box">
                         <div class="trending-news-img-box">
                             <span class="trending-number place-items-center"><?php echo $index + 1; ?></span>
@@ -169,7 +170,7 @@
                     </a>
                 <?php endforeach; ?>
 
-                
+
 
 
 
@@ -190,31 +191,34 @@
 
             <div class="older-posts-grid-wrapper d-grid">
 
-           
+
 
                 <?php foreach ($lastSixWikis as $index => $wiki) : ?>
 
-                <a href="#" class="article d-grid">
-                    <div class="older-posts-article-image-wrapper">
-                        <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="" class="article-image">
-                    </div>
+                    <a href="#" class="article d-grid">
 
-                    <div class="article-data-container">
+                    <input type="hidden" name="Wiki_id" value="<?= $wiki->getId(); ?>">
 
-                        <div class="article-data">
-                            <span><?php echo $wiki->getCreationDate(); ?></span>
-                            <span class="article-data-spacer"></span>
-                            <span><?php echo $wiki->getReadMin(); ?> Min read</span>
+                        <div class="older-posts-article-image-wrapper">
+                            <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="" class="article-image">
                         </div>
 
-                        <h3 class="title article-title"><?php echo $wiki->getTitle(); ?></h3>
-                        <p class="article-description"><?php echo implode(' ', array_slice(explode(' ', $wiki->getContent()), 0, 20)); ?></p>
+                        <div class="article-data-container">
 
-                    </div>
-                </a>
+                            <div class="article-data">
+                                <span><?php echo $wiki->getCreationDate(); ?></span>
+                                <span class="article-data-spacer"></span>
+                                <span><?php echo $wiki->getReadMin(); ?> Min read</span>
+                            </div>
+
+                            <h3 class="title article-title"><?php echo $wiki->getTitle(); ?></h3>
+                            <p class="article-description"><?php echo implode(' ', array_slice(explode(' ', $wiki->getContent()), 0, 20)); ?></p>
+
+                        </div>
+                    </a>
                 <?php endforeach; ?>
 
-                
+
 
             </div>
 
@@ -237,35 +241,15 @@
 
             <div class="popular-tags-container d-grid">
 
-                <a href="#" class="article">
-                    <span class="tag-name">Category here</span>
-                    <img src="./assets/images/tags/travel-tag.jpg" alt="" class="article-image">
-                </a>
 
-                <a href="#" class="article">
-                    <span class="tag-name">Category here</span>
-                    <img src="./assets/images/tags/food-tag.jpg" alt="" class="article-image">
-                </a>
 
-                <a href="#" class="article">
-                    <span class="tag-name">Category here</span>
-                    <img src="./assets/images/tags/technology-tag.jpg" alt="" class="article-image">
-                </a>
 
-                <a href="#" class="article">
-                    <span class="tag-name">Category here</span>
-                    <img src="./assets/images/tags/health-tag.jpg" alt="" class="article-image">
-                </a>
-
-                <a href="#" class="article">
-                    <span class="tag-name">Category here</span>
-                    <img src="./assets/images/tags/nature-tag.jpg" alt="" class="article-image">
-                </a>
-
-                <a href="#" class="article">
-                    <span class="tag-name">Category here</span>
-                    <img src="./assets/images/tags/fitness-tag.jpg" alt="" class="article-image">
-                </a>
+                <?php foreach ($lastSixCategories as $category) : ?>
+                    <a href="#" class="article">
+                        <span class="tag-name"><?= $category->getName(); ?></span>
+                        <img src="/WIKI/public/img/<?= $category->getPicture(); ?>" alt="" class="article-image">
+                    </a>
+                <?php endforeach; ?>
 
             </div>
 
@@ -282,35 +266,15 @@
 
             <div class="popular-tags-container d-grid">
 
-                <a href="#" class="article">
-                    <span class="tag-name">#TAGHERE</span>
-                    <img src="./assets/images/tags/travel-tag.jpg" alt="" class="article-image">
-                </a>
+                <?php foreach ($lastSixTags as $tag) {
+                    echo '<a href="#" class="article">';
+                    echo '<span class="tag-name">' . htmlspecialchars($tag->getLabel()) . '</span>';
+                    echo '<img src="/WIKI/public/img/hashtag.jpg" alt="" class="article-image">';
+                    echo '</a>';
+                }
+                ?>
 
-                <a href="#" class="article">
-                    <span class="tag-name">#TAGHERE</span>
-                    <img src="./assets/images/tags/food-tag.jpg" alt="" class="article-image">
-                </a>
 
-                <a href="#" class="article">
-                    <span class="tag-name">#TAGHERE</span>
-                    <img src="./assets/images/tags/technology-tag.jpg" alt="" class="article-image">
-                </a>
-
-                <a href="#" class="article">
-                    <span class="tag-name">#TAGHERE</span>
-                    <img src="./assets/images/tags/health-tag.jpg" alt="" class="article-image">
-                </a>
-
-                <a href="#" class="article">
-                    <span class="tag-name">#TAGHERE</span>
-                    <img src="./assets/images/tags/nature-tag.jpg" alt="" class="article-image">
-                </a>
-
-                <a href="#" class="article">
-                    <span class="tag-name">#TAGHERE</span>
-                    <img src="./assets/images/tags/fitness-tag.jpg" alt="" class="article-image">
-                </a>
 
             </div>
 

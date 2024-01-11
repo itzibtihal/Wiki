@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Dao\DaoImpl\DaoImplementation;
 use App\Entities\Category;
 use PDO;
+use PDOException;
 
 class CategoryModel extends DaoImplementation
 {
@@ -132,4 +133,37 @@ class CategoryModel extends DaoImplementation
             return 0;
         }
     }
+
+    // CategoryModel.php
+
+public function getLastSixCategories()
+{
+    try {
+        $query = "SELECT * FROM categories ORDER BY id DESC LIMIT 6";
+        $statement = $this->getConnection()->query($query);
+
+        if ($statement) {
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $categories = [];
+
+            foreach ($results as $result) {
+                $category = new Category(
+                    $result['id'],
+                    $result['name'],
+                    $result['picture']
+                );
+
+                $categories[] = $category;
+            }
+
+            return $categories;
+        } else {
+            return [];
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return [];
+    }
+}
+
 }

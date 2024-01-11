@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Dao\DaoImpl\DaoImplementation;
 use App\Entities\Tag;
 use PDO;
+use PDOException;
 
 class TagModel extends DaoImplementation
 {
@@ -148,6 +149,34 @@ class TagModel extends DaoImplementation
 
 
 
+    public function getLastSixTags()
+{
+    try {
+        $query = "SELECT * FROM tags ORDER BY id DESC LIMIT 6";
+        $statement = $this->getConnection()->query($query);
+
+        if ($statement) {
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $tags = [];
+
+            foreach ($results as $result) {
+                $tag = new Tag(
+                    $result['id'],
+                    $result['label']
+                );
+
+                $tags[] = $tag;
+            }
+
+            return $tags;
+        } else {
+            return [];
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return [];
+    }
+}
 
 
 
