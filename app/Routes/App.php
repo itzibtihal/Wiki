@@ -13,7 +13,7 @@ $router->setRoutes([
         'home' => ['HomeController', 'index'],
         'homepage' => ['HomeWikiController', 'index'],
         'homepage' => ['HomeWikiController', 'getLastWikiByCategory6'],
-       
+        'DetailsWikipage' => ['DetailsWikiController', 'index'],
         'Categories' => ['CategoryController', 'index'],
         'addCatego' => ['CategoryController', 'getaddCategory'],
         'updateCatego' => ['CategoryController', 'getupdateCategory'],

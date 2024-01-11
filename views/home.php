@@ -90,7 +90,7 @@
                 </div>
 
 
-                <a href="./post.html" class="article featured-article featured-article-1">
+                <a href="DetailsWikipage?id=<?= $lastWiki7->getId(); ?>" class="article featured-article featured-article-1">
                     <img src="/WIKI/public/img/R.jpg" alt="" class="article-image" width="100PX" height="70px">
                     <span class="article-category">Technologies</span>
 
@@ -109,7 +109,7 @@
 
 
 
-                <a href="./post.html" class="article featured-article featured-article-2">
+                <a href="DetailsWikipage?id=<?= $lastWiki6->getId(); ?>" class="article featured-article featured-article-2">
                     <img src="/WIKI/public/img/sportt.jpg" alt="" class="article-image">
                     <span class="article-category">Sport</span>
 
@@ -126,7 +126,7 @@
                     </div>
                 </a>
 
-                <a href="./post.html" class="article featured-article featured-article-3">
+                <a href="DetailsWikipage?id=<?= $lastWiki->getId(); ?>DetailsWikipage" class="article featured-article featured-article-3">
                     <img src="/WIKI/public/img/food.jpg" alt="" class="article-image">
                     <span class="article-category">Food</span>
 
@@ -151,7 +151,7 @@
 
                 <?php foreach ($lastFiveWikis as $index => $wiki) : ?>
                     <input type="hidden" name="Wiki_id" value="<?= $wiki->getId(); ?>">
-                    <a href="#" class="trending-news-box">
+                    <a href="DetailsWikipage?id=<?= $wiki->getId(); ?>" class="trending-news-box">
                         <div class="trending-news-img-box">
                             <span class="trending-number place-items-center"><?php echo $index + 1; ?></span>
                             <!-- You may need to adjust the image source based on your data -->
@@ -195,7 +195,7 @@
 
                 <?php foreach ($lastSixWikis as $index => $wiki) : ?>
 
-                    <a href="#" class="article d-grid">
+                    <a href="DetailsWikipage?id=<?= $wiki->getId(); ?>" class="article d-grid">
 
                     <input type="hidden" name="Wiki_id" value="<?= $wiki->getId(); ?>">
 

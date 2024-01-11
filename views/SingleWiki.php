@@ -12,7 +12,7 @@
     <!-- Swiper.js styles -->
     <!-- <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css"/> -->
     <!-- Custom styles -->
-    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="/WIKI/public/css/index.css">
 </head>
 
 <body>
@@ -83,42 +83,23 @@
     <section class="blog-post section-header-offset">
         <div class="blog-post-container container">
             <div class="blog-post-data">
-                <h3 class="title blog-post-title">MY TITLE HERE ?</h3>
-                <div class="article-data">
-                    <span>Jun 8th 2024</span>
-                    <span class="article-data-spacer"></span>
-                    <span>4 Min read</span>
-                    <span class="article-data-spacer"></span>
-                    <span>Gategory</span>
-                </div>
-                <img src="./assets/images/featured/featured-1.jpg" alt="">
+            <h3 class="title blog-post-title"><?php echo $wiki->getTitle(); ?></h3>
+            <div class="article-data">
+                <span><?php echo $wiki->getCreationDate(); ?></span>
+                <span class="article-data-spacer"></span>
+                <span><?php echo $wiki->getReadMin(); ?> Min read</span>
+                <span class="article-data-spacer"></span>
+                <span><?php echo $wiki->getCategoryName(); ?></span>
             </div>
+            <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="">
+        </div>
 
-            <div class="container">
+        <div class="container">
+            <?php echo $wiki->getContent(); ?>
 
-
-
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eius possimus hic eligendi distinctio rerum incidunt, esse quasi eum molestiae ducimus ipsam quae, aliquid ullam placeat dolorum nulla vero. Quam? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente repellat consequatur culpa, repudiandae aut dolores iusto. Rem natus soluta, dolores, ad deleniti, aut dolorem corrupti quasi amet unde delectus hic?
-                </p>
-
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eius possimus hic eligendi distinctio rerum incidunt, esse quasi eum molestiae ducimus ipsam quae, aliquid ullam placeat dolorum nulla vero. Quam? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero quod necessitatibus, aspernatur pariatur asperiores earum quas adipisci veritatis quidem facilis! Nihil veniam quaerat nulla possimus, asperiores vero voluptatum placeat. Eveniet!
-                </p>
-
-                <blockquote class="quote">
-                    <p><span><i class="ri-double-quotes-l"></i></span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia voluptates, laboriosam voluptatum quos non consequuntur nesciunt necessitatibus tempora quod inventore corporis rem nihil itaque, at provident minus aliquam veritatis. Labore? <span><i class="ri-double-quotes-r"></i></span></p>
-                </blockquote>
-
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis eius possimus hic eligendi distinctio rerum incidunt, esse quasi eum molestiae ducimus ipsam quae, aliquid ullam placeat dolorum nulla vero. Quam? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero quod necessitatibus, aspernatur pariatur asperiores earum quas adipisci veritatis quidem facilis! Nihil veniam quaerat nulla possimus, asperiores vero voluptatum placeat. Eveniet!
-                </p>
-
-
-                <p>
-                    tags her ,
-                </p>
-
+            <p>
+                tags here: <?php echo implode(', ', $wiki->getTags()); ?>
+            </p>
 
 
 
@@ -127,17 +108,17 @@
                         <img src="./assets/images/author.jpg" alt="" class="article-image">
                     </div>
                     <div class="author-about">
-                        <h3 class="author-name">John Doe</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque quis repellat rerum, possimus cumque dolor repellendus eligendi atque explicabo exercitationem id.</p>
+                        <h3 class="author-name"><?php echo $user->getName(); ?></h3>
+                        <p><?php echo $user->getDescription(); ?></p>
                         <ul class="list social-media">
                             <li class="list-item">
-                                <a href="#" class="list-link"><i class="ri-instagram-line"></i></a>
+                                <a href="<?php echo $user->getInstagramProfile(); ?>" class="list-link"><i class="ri-instagram-line"></i></a>
                             </li>
                             <li class="list-item">
-                                <a href="#" class="list-link"><i class="ri-twitter-line"></i></a>
+                                <a href="<?php echo $user->getXProfile(); ?>" class="list-link"><i class="ri-twitter-line"></i></a>
                             </li>
                             <li class="list-item">
-                                <a href="#" class="list-link"><i class="ri-linkedin-line"></i></a>
+                                <a href="<?php echo $user->getLinkedinProfile(); ?>" class="list-link"><i class="ri-linkedin-line"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -244,7 +225,7 @@
 </footer>
 
 
-<script src="../public/js/index.js"></script>
+<script src="/WIKI/public/js/index.js"></script>
 </body>
 
 </html>
