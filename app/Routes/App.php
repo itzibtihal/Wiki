@@ -39,6 +39,8 @@ $router->setRoutes([
         'deleteTag' => ['TagController', 'destroyTag'],
         'ArchiveWiki' => ['WikiController', 'archiveWiki'],
         'verifyWiki' => ['WikiController', 'verifyWiki'],
+        'UpdateProfile' => ['UserController', 'updateUser'],
+        
     ]
 ]);
 

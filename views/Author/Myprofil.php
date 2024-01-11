@@ -76,7 +76,7 @@
                 <a href="Dashboard" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
                 <a href="Wikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-book me-2 "></i>Add New Wikis</a>
-                <a href="ArchivedWikis" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-trash me-2"></i>My Wikis Cards</a>
+                
                 <a href="WikiAuthors" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-feather me-2"></i>Author Profile</a>
 
 
@@ -116,13 +116,13 @@
             </nav>
 
             <div class="container rounded bg-white mt-5">
-                <form action="UpdateProfil" method="post" enctype="multipart/form-data">
+                <form action="UpdateProfile" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-4 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5 card">
-                                <img class="rounded-circle mt-5" src="/WIKI/public/img/<?php echo $existingUser->getProfile(); ?>" width="90" id="image" >
+                                <img class="rounded-circle mt-5" src="/WIKI/public/img/<?php echo $existingUser->getProfile(); ?>" width="90" id="image">
                                 <label for="input-file">Choose A new Picture</label>
-                                <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="profile" required>
+                                <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="profile">
                                 <span class="font-weight-bold"><?php echo $existingUser->getName(); ?></span>
                             </div>
                         </div>
@@ -143,18 +143,19 @@
                                 </div>
                                 <div class="row mt-3">
                                     <label for="">Description:</label>
-
-                                    <textarea name="description" class="form-control" id="" cols="30" rows="5" placeholder="your description" value="<?php echo $existingUser->getName(); ?>"></textarea>
+                                    <textarea name="description" class="form-control" id="" cols="30" rows="5" placeholder="your description"><?php echo $existingUser->getDescription(); ?></textarea>
                                 </div>
+
                                 <div class="row mt-3">
                                     <label for="">Socials:</label>
                                     <div class="col-md-6"><input type="text" name="linkedinProfile" class="form-control" placeholder="Linkedin link" value="<?php echo $existingUser->getLinkedinProfile(); ?>"></div>
-                                    <div class="col-md-6"><input type="text" name="instagramProfile"  class="form-control" placeholder="Instagram link" value="<?php echo $existingUser->getInstagramProfile(); ?>"></div>
+                                    <div class="col-md-6"><input type="text" name="instagramProfile" class="form-control" placeholder="Instagram link" value="<?php echo $existingUser->getInstagramProfile(); ?>"></div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-6"><input type="text" name="xProfile"  class="form-control" placeholder=" X profile" value="<?php echo $existingUser->getXProfile(); ?>"></div>
+                                    <div class="col-md-6"><input type="text" name="xProfile" class="form-control" placeholder=" X profile" value="<?php echo $existingUser->getXProfile(); ?>"></div>
                                 </div>
-                                <div class="mt-5 text-right"><button type="submit"  name="submit" class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                                <input type="hidden" name="user_id" value="<?php echo $existingUser->getId(); ?>">
+                                <div class="mt-5 text-right"><button type="submit" name="submit" class="btn btn-primary profile-button" type="button">Save Profile</button></div>
                             </div>
                         </div>
                     </div>

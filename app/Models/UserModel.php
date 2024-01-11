@@ -203,6 +203,41 @@ class UserModel extends DaoImplementation
 
         return [];
     }
+   
+    public function updateUser($user): void
+{
+    try {
+        $query = "UPDATE $this->tableName SET 
+                  name = :name, 
+                  email = :email, 
+                  profile = :profile, 
+                  linkedinProfile = :linkedinProfile, 
+                  instagramProfile = :instagramProfile, 
+                  xProfile = :xProfile, 
+                  description = :description, 
+                  role_id = :role_id
+                  WHERE id = :id";
+        $statement = $this->getConnection()->prepare($query);
+
+        $statement->bindValue(':id', $user->getId());
+        $statement->bindValue(':name', $user->getName());
+        $statement->bindValue(':email', $user->getEmail());
+        $statement->bindValue(':profile', $user->getProfile());
+        $statement->bindValue(':linkedinProfile', $user->getLinkedinProfile());
+        $statement->bindValue(':instagramProfile', $user->getInstagramProfile());
+        $statement->bindValue(':xProfile', $user->getXProfile());
+        $statement->bindValue(':description', $user->getDescription());
+        $statement->bindValue(':role_id', $user->getRoleId());
+
+        $result = $statement->execute();
+
+        if (!$result) {
+            throw new \RuntimeException("Failed to update the entity in the database.");
+        }
+    } catch (\Exception $exception) {
+        throw $exception;
+    }
+}
 
 
     public function countUsersByRoleId($roleId)
