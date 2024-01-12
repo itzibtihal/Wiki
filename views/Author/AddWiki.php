@@ -54,7 +54,7 @@
                 <a href="MyDash" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
                 <a href="MyDashCreateWiki" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-book me-2 "></i>Add New Wikis</a>
-                
+
                 <a href="MyProfile" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-feather me-2"></i>Author Profile</a>
 
 
@@ -96,18 +96,18 @@
 
             <div class="container mt-5">
                 <h2>Create a Wiki</h2>
-                <form action="process_wiki.php" method="post" enctype="multipart/form-data">
+                <form action="MyDashCreateWiki" method="post" enctype="multipart/form-data">
+
                     <div class="card">
                         <img src="/WIKI/public/img/category.jpg" alt="image" id="image">
                         <label for="input-file">Choose Picture</label>
-                        <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="picture" required>
+                        <input type="file" accept="image/jpg, image/png, image/jpeg" id="input-file" name="picture" required>
                     </div>
 
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
-
 
                     <form action="" method="post">
 
@@ -116,49 +116,43 @@
 
                     </form>
 
-
                     <div class="form-group">
                         <label for="content"> Past the code of the Content here </label>
                         <textarea class="form-control" name="content" id="content" rows="4" required></textarea>
                     </div>
 
-
-
-
                     <div class="form-group">
                         <label for="tags">Tags</label>
-
                         <select class="form-control" id="tags" name="tags[]" multiple required>
                             <?php
                             foreach ($tags as $tag) {
-                                echo "<option value='" . htmlspecialchars($tag) . "'>" . htmlspecialchars($tag) . "</option>";
+                                echo "<option value='" . htmlspecialchars($tag->getName()) . "'>" . htmlspecialchars($tag->getName()) . "</option>";
                             }
                             ?>
                         </select>
                     </div>
 
-
-
                     <div class="form-group">
                         <label for="categoryId">Category</label>
-
                         <select class="form-control" id="categoryId" name="categoryId" required>
-
+                            <?php
+                            foreach ($categories as $category) {
+                                echo "<option value='" . htmlspecialchars($category->getId()) . "'>" . htmlspecialchars($category->getName()) . "</option>";
+                            }
+                            ?>
                         </select>
                     </div>
-
-
 
                     <div class="form-group">
                         <label for="readMin">Read Time (minutes)</label>
                         <input type="number" class="form-control" id="readMin" name="readMin" required>
                     </div>
 
-
                     <br>
                     <button type="submit" class="btn btn-primary">Create Wiki</button>
                     <br>
                 </form>
+
             </div>
 
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

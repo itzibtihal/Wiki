@@ -32,10 +32,10 @@ class AllWikisHome
         require_once "../../views/wikiposts.php";
     }
 
-    public function search()
+    public function searchh()
 {
     // var_dump($_GET);
-    $searchTerm = $_GET['search']; 
+    $searchTerm = $_GET['q']; 
     $wikis = $this->wikiModel->searchWikis($searchTerm);
 
     foreach ($wikis as $wiki) {
@@ -49,6 +49,18 @@ class AllWikisHome
     }
 
     require_once "../../views/wikiposts.php";
+}
+
+public function search()
+{
+    if (isset($_GET['q'])) {
+        $searchQuery = $_GET['q'];
+        $WikiModel = new WikiModel();
+        $searchedWikis = $WikiModel->searchWikiis($searchQuery);
+
+        echo json_encode($searchedWikis);
+
+    }
 }
 
 

@@ -588,13 +588,55 @@ public function getLastSixVerifiedWikis()
             $wikis[] = $wiki;
         }
 
-        return $wikis;
+        return $results;
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
         return [];
     }
 }
+public function searchWikiis($searchInput)
+{
+    $searchInput = "%$searchInput%";
 
+    $sql = "SELECT DISTINCT w.*, u.name AS user_name, c.name AS category_name, GROUP_CONCAT(t.label) AS tag_labels FROM wikis w LEFT JOIN users u ON w.user_id = u.id  JOIN categories c ON w.category_id = c.id  JOIN wikis_tags wt ON w.id = wt.wiki_id  JOIN tags t ON wt.tag_id = t.id WHERE w.title LIKE :searchInput OR w.content LIKE :searchInput OR u.name LIKE :searchInput OR c.name LIKE :searchInput OR t.label LIKE :searchInput GROUP BY w.id, u.name, c.name";
+    $query = "SELECT  DISTINCT w.*
+    FROM $this->tableName w
+    LEFT JOIN categories c ON w.category_id = c.id
+    LEFT JOIN wikis_tags wt ON w.id = wt.id_wiki
+    LEFT JOIN tags t ON wt.id_tag = t.id
+    WHERE w.title LIKE :searchInput 
+       OR w.content LIKE :searchInput
+       OR c.name LIKE :searchInput
+       OR t.label LIKE :searchInput
+       AND w.status = 'verified'";
+    $stmt = $this->getConnection()->prepare($query);
+    $stmt->bindParam(':searchInput', $searchInput, PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $wikiData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        // foreach ($wikiData as $wikiRow) {
+        //     $wikis[] = new Wiki(
+        //         $wikiRow['id'],
+        //         $wikiRow['picture'],
+        //         $wikiRow['title'],
+        //         $wikiRow['content'],
+        //         $wikiRow['read_min'],
+        //         $wikiRow['creation_date'],
+        //         $wikiRow['date_deleted'],
+        //         $wikiRow['status'],
+        //         $wikiRow['user_id'],
+        //         $wikiRow['category_id']
+        //         // explode(',', $wikiRow['tag_labels'])
+        //     );
+        // }
+
+        return $wikiData;
+    }
+
+ 
 
     // public function delete( $wiki): void
     // {

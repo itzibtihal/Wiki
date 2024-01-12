@@ -2,9 +2,11 @@
 
 namespace App\controllers;
 
+use App\Entities\Category;
 use App\Entities\Wiki;
 use App\Models\WikiModel;
 use App\Models\UserModel;
+use App\Models\CategoryModel;
 
 
 class WikiController
@@ -12,11 +14,13 @@ class WikiController
     private $wikiModel;
     private $tagModel;
     private $userModel;
+     private $categoryModel;
 
     public function __construct()
     {
         $this->wikiModel = new WikiModel();
         $this->userModel = new UserModel();
+        $this->categoryModel = new CategoryModel();
     }
 
     public function index()
@@ -111,53 +115,89 @@ class WikiController
 
     public function createWiki()
     {
-        $userSId= $_SESSION['userId'];
-      // var_dump( $userSId);
-      // $userId = 2;
-      $existingUser = $this->userModel->getById($userSId);
-        
-        // $userSId= $_SESSION['userId'];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Process the form submission
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $readTime = $_POST['readMin'];
-            $categoryId = $_POST['categoryId'];
-            $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
-            
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
-            $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
-
-        
-        if (!file_exists($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-
-        if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
-        
-            $wiki = new Wiki(null, $_FILES['picture']['name'], $title, $content, $readTime, null, null, null, null, $categoryId);
-
-           
-            $wiki->setTags($tags);
-            
-
-            try {
-               
-                $this->wikiModel->saveWikiWithTags($wiki);
-
-                
-                header("Location: success_page.php");
-                exit();
-            } catch (\Exception $exception) {
-                
-                echo "Error: " . $exception->getMessage();
+        try {
+            // Fetch user details
+            $userSId = $_SESSION['userId'];
+            $existingUser = $this->userModel->getById($userSId);
+    
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Process the form submission
+                $title = $_POST['title'];
+                $content = $_POST['content'];
+                $readTime = $_POST['readMin'];
+                $categoryId = $_POST['categoryId'];
+                $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
+    
+                $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
+                $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
+    
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+    
+                if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
+                    // Create a new Wiki object
+                    $wiki = new Wiki(null, $_FILES['picture']['name'], $title, $content, $readTime, null, null, null, null, $categoryId);
+    
+                    // Set tags for the wiki
+                    $wiki->setTags($tags);
+    
+                    try {
+                        // Save the wiki with tags
+                        $this->wikiModel->saveWikiWithTags($wiki);
+    
+                        // Redirect to success page
+                        header("Location: success_page.php");
+                        exit();
+                    } catch (\Exception $exception) {
+                        // Handle exceptions (e.g., log the error)
+                        echo "Error: " . $exception->getMessage();
+                    }
+                }
+            } else {
+                // Display the form
+                // Call the function to get tags and categories
+                $wikiFormDetails = $this->getWikiFormDetails();
+    
+                // Extract tags and categories from the returned array
+                $tags = $wikiFormDetails['tags'];
+                $categories = $wikiFormDetails['categories'];
+    
+                // Pass tags, categories, and user details to the view
+                require_once "../../views/Author/Addwiki.php";
             }
-        } 
-    }else {
-            // Display the form
-            require_once "../../views/Author/Addwiki.php";
+        } catch (\Exception $exception) {
+            // Handle exceptions (e.g., log the error)
+            echo "Error: " . $exception->getMessage();
         }
     }
+    
+
+    public function getWikiFormDetails()
+    {
+        try {
+            // Fetch all tags
+            $tags = $this->tagModel ? $this->tagModel->getAllTags() : [];
+    
+            // Fetch all categories
+            $categories = $this->categoryModel ? $this->categoryModel->getAll() : [];
+    
+            // Return an associative array containing tags and categories
+            return [
+                'tags' => $tags,
+                'categories' => $categories,
+            ];
+        } catch (\Exception $exception) {
+            // Handle exceptions (e.g., log the error)
+            throw $exception;
+        }
+    }
+
+   
+    
+
+
+
 
 
 }

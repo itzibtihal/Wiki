@@ -223,7 +223,7 @@
             </div>
 
             <div class="see-more-container">
-                <a href="wikiposts.php" class="btn see-more-btn place-items-center">See more <i class="ri-arrow-right-s-line"></i></i></a>
+                <a href="AllWikiSwiki" class="btn see-more-btn place-items-center">See more <i class="ri-arrow-right-s-line"></i></i></a>
             </div>
 
         </div>

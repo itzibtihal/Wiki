@@ -184,18 +184,19 @@
   <br><br><br><br><br>
   <!-- barre de recherche -->
 
-  <form id="searchForm" onsubmit="return false;">
+  <form id="searchForm">
     <!-- Your existing form content here -->
     <div class="wrapper">
         <div class="search_box_wrapper">
             <div class="search_box_item search_box_item_3">
                 <div class="search_box">
-                    <input type="text" id="searchInput" class="input_search form-control" oninput="load_data(this.value)" placeholder="Search for anything you wish for?">
+                    <input type="text" id="searchInput" class="input_search form-control" placeholder="Search for anything you wish for?">
                     <span class="icon">
                         <ion-icon name="search-outline" class="i"></ion-icon>
                     </span>
                 </div>
-                <button type="submit">Search</button>
+                <!-- Remove the 'oninput' attribute as it's handled in the JavaScript -->
+                <button type="button" onclick="handleSearchClick()">Search</button>
             </div>
         </div>
     </div>
@@ -212,9 +213,9 @@
     <div class="container">
       <!-- data-name="Wiki posts" -->
       <h2 class="title section-title">Wiki posts</h2>
-      
 
-      <div class="older-posts-grid-wrapper d-grid" id="searchResultsContainer">
+
+      <div class="older-posts-grid-wrapper d-grid" id="searchResults">
 
 
 
@@ -372,32 +373,99 @@
 
     // load_data();
   </script>
- <script>
-//     function load_data(search) {
-//     // Use AJAX to send a request to the server
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('GET', 'search-wikis?search=' + encodeURIComponent(search), true);
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
 
-//     xhr.onprogress = function () {
-//         // Display a loading spinner while waiting for the response
-//         document.getElementById('searchResultsContainer').innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
-//     };
+    searchInput.addEventListener("input", handleSearch);
 
-//     xhr.onload = function () {
-//         // Update the searchResultsContainer with the received response
-//         document.getElementById('searchResultsContainer').innerHTML = xhr.responseText;
-//     };
+    async function handleSearch(e) {
+    try {
+        const query = e.target.value;
+        const data = await fetchData(query);
+        // console.log("Received data:", data); 
+        updateResults(data);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-//     // Handle errors
-//     xhr.onerror = function () {
-//         console.error("Error occurred during the request.");
-//     };
+    async function fetchData(query) {
+      const response = await fetch("search?q=" + encodeURIComponent(query));
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.text();
+    }
 
-//     // Send the request
-//     xhr.send();
-// }
+    function updateResults(data) {
+      const results = JSON.parse(data);
 
+      searchResults.innerHTML = "";
+
+      results.forEach((item) => {
+        const article = document.createElement("a");
+        article.href = `DetailsWikipage?id=${btoa(item.id)}`;
+        article.className = "article d-grid";
+        article.id = "data";
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "Wiki_id";
+        input.value = item.id;
+
+        const imageWrapper = document.createElement("div");
+        imageWrapper.className = "older-posts-article-image-wrapper";
+
+        const image = document.createElement("img");
+        image.src = item.picture
+          ? `/Wiki/public/img/${item.picture}`
+          : '/path/to/placeholder-image'; // Replace with the path to your placeholder image
+        image.alt = "";
+        image.className = "article-image";
+
+        imageWrapper.appendChild(image);
+
+        const dataContainer = document.createElement("div");
+        dataContainer.className = "article-data-container";
+
+        const articleData = document.createElement("div");
+        articleData.className = "article-data";
+
+        const creationDate = document.createElement("span");
+        creationDate.textContent = item.creationDate;
+
+        const articleDataSpacer = document.createElement("span");
+        articleDataSpacer.className = "article-data-spacer";
+
+        const readMin = document.createElement("span");
+        readMin.textContent = `${item.read_min} Min read`;
+
+        articleData.appendChild(creationDate);
+        articleData.appendChild(articleDataSpacer);
+        articleData.appendChild(readMin);
+
+        const articleTitle = document.createElement("h3");
+        articleTitle.className = "title article-title";
+        articleTitle.textContent = item.title;
+
+        const articleDescription = document.createElement("p");
+        articleDescription.className = "article-description";
+        articleDescription.textContent = item.content.substring(0, 20); // Adjust as needed
+
+        dataContainer.appendChild(articleData);
+        dataContainer.appendChild(articleTitle);
+        dataContainer.appendChild(articleDescription);
+
+        article.appendChild(input);
+        article.appendChild(imageWrapper);
+        article.appendChild(dataContainer);
+
+        searchResults.appendChild(article);
+      });
+    }
 </script>
+
 
 
 
