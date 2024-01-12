@@ -75,7 +75,7 @@ class AuthController
     public function logout()
     {
         session_destroy();
-        $this->redirectWithMessage('login', 'You have been successfully logged out.');
+        $this->redirectWithMessage('Auth', 'You have been successfully logged out.');
     }
 
     // Helper function to get user data if logged in

@@ -33,6 +33,7 @@ $router->setRoutes([
         'MyProfile' => ['UserController', 'geteditProfil'],
         'search-wikis' => ['AllWikisHome', 'search'],
         'Auth' => ['AuthController', 'getAuthPage'],
+        'logout' => ['AuthController', 'logout'],
         
     ],
 
