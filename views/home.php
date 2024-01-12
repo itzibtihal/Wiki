@@ -58,7 +58,7 @@
                 </button>
 
 
-                <a href="auth/Auth.php" class="btn sign-up-btn  screen-sm-hidden">
+                <a href="Auth" class="btn sign-up-btn  screen-sm-hidden">
                     <span>Get Started</span>
                 </a>
             </div>

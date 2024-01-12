@@ -26,7 +26,7 @@
     <!-- logo name -->
     <div class="position-absolute top-0 start-0 p-3">
         <span>
-            <a href="home.html" class="text-decoration-none fw-bold fs-5 "><ion-icon name="home-outline"></ion-icon> &nbsp;Wiki</a>
+            <a href="homepage" class="text-decoration-none fw-bold fs-5 "><ion-icon name="home-outline"></ion-icon> &nbsp;Wiki</a>
         </span>
     </div>
 
