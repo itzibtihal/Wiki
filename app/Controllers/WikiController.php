@@ -148,9 +148,10 @@ class WikiController
     
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Process the form submission
-                $title = $_POST['title'];
+                
+                $title = filter_var($_POST['title'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $content = $_POST['content'];
-                $read_min = $_POST['read_min'];
+                $read_min = filter_var($_POST['read_min'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $category_id = $_POST['category_id'];
                 $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
                

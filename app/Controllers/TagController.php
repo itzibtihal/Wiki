@@ -67,7 +67,8 @@ class TagController
     {
         $this->isAdminLoggedIn();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $label = $_POST['label'];
+           
+            $label = filter_var($_POST['label'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $id = $_POST['id'];
             $tag = new Tag($id,$label);
             
@@ -90,7 +91,7 @@ class TagController
                 return;
             }
 
-            $label = $_POST['label'];
+            $label = filter_var($_POST['label'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $existingTag->setLabel($label);
 
             $this->tagModel->update($existingTag);

@@ -77,7 +77,7 @@ class CategoryController
     $this->isAdminLoggedIn();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
-        $name = $_POST['name'];
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
@@ -118,7 +118,7 @@ public function UpdateCategory()
             return;
         }
 
-        $name = $_POST['name'];
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';

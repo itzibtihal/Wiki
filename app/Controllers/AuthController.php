@@ -28,9 +28,9 @@ class AuthController
     public function signup()
     {
         try {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);;
             $role_id = 2;
     
             if (empty($name)) {
@@ -56,8 +56,9 @@ class AuthController
     public function signin()
     {
         try {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $userModel = new UserModel();
             $userData = $userModel->getUserByEmail($email);

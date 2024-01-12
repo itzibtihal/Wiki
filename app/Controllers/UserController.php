@@ -70,12 +70,14 @@ class UserController
                 return;
             }
 
-            $name = $_POST['name'];
-            $email = $_POST['email'];
+            
+            $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $linkedinProfile = $_POST['linkedinProfile'];
             $instagramProfile = $_POST['instagramProfile'];
             $xProfile = $_POST['xProfile'];
-            $description = $_POST['description'];
+            $description = filter_var($_POST['description'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
 
 
             $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
