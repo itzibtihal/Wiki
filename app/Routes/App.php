@@ -47,6 +47,7 @@ $router->setRoutes([
         'verifyWiki' => ['WikiController', 'verifyWiki'],
         'UpdateProfile' => ['UserController', 'updateUser'],
         'Auth-signup' => ['AuthController', 'signup'],
+        'Auth-signin' => ['AuthController', 'signin'],
        
         
     ]

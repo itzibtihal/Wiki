@@ -39,7 +39,7 @@
                         <h3 class="fw-bolder">WELCOME BACK !</h3>
                         <p class="fw-lighter fs-6">Don't have an account, <span id="signUp" role="button" class="text-primary">Sign Up</span></p>
                         <!-- form login section -->
-                        <form action="" class="mt-5">
+                        <form action="Auth-signin" class="mt-5" method="post">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control text-indent shadow-sm bg-grey-light border-0 rounded-pill fw-lighter fs-7 p-3" placeholder="name@example.com" name="email" id="email">
