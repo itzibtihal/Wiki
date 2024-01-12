@@ -73,7 +73,9 @@
                         <h6 class="card-text">Min to read: <?= $wiki->getReadMin(); ?> <sup>minutes</sup> </h6>
                         <h6 class="card-text">Date: <?= $wiki->getCreationDate(); ?></h6>
                         <h6 class="card-text">Category: <?= $wiki->getCategoryName(); ?></h6>
-                        <p class="card-text"><?= $wiki->getContent(); ?></p>
+                        <!-- <p class="card-text"><?PHP
+                        // $wiki->getContent(); 
+                        ?></p> -->
                         <p class="card-text">Tags: <?= implode(', ', array_column($wiki->getTags(), 'label')); ?> </p>
                         <div class="d-flex justify-content-center">
                         <form method="post" action="ArchiveWiki">
