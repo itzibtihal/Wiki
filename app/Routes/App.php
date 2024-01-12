@@ -30,6 +30,7 @@ $router->setRoutes([
         'MyDashCreateWiki' => ['WikiController', 'CreateWiki'],
         'MyProfile' => ['UserController', 'geteditProfil'],
         'search-wikis' => ['AllWikisHome', 'search'],
+        'Auth' => ['AuthController', 'getAuthPage'],
         
     ],
 
@@ -45,6 +46,7 @@ $router->setRoutes([
         'ArchiveWiki' => ['WikiController', 'archiveWiki'],
         'verifyWiki' => ['WikiController', 'verifyWiki'],
         'UpdateProfile' => ['UserController', 'updateUser'],
+        'Auth-signup' => ['AuthController', 'signup'],
        
         
     ]

@@ -1,0 +1,132 @@
+<?php
+
+namespace App\controllers;
+
+use App\Entities\User;
+use App\Models\UserModel;
+
+class AuthController
+{
+    public function redirectToSignup()
+    {
+        $userData = $this->getUserData();
+
+        include '../../views/auth/Auth.php';
+    }
+    public function getAuthPage()
+    {
+        include '../../views/auth/Auth.php';
+    }
+
+    public function redirectToSignin()
+    {
+        $userData = $this->getUserData();
+
+        include '../../views/auth/Auth.php';
+    }
+
+    public function signup()
+    {
+        try {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $role_id = 2;
+    
+            if (empty($name)) {
+                throw new \Exception('Name cannot be empty');
+            }
+    
+            $userModel = new UserModel();
+            $exist = $userModel->getUserByEmail($email);
+    
+            if ($exist) {
+                throw new \Exception('Username or email has already been taken');
+            } else {
+                $user = new User(null, $name, $email, null, $password, null, null, null, null, $role_id);
+                $userModel->save($user);
+                $this->redirect('Auth');
+            }
+        } catch (\Exception $e) {
+            $this->redirectWithError('register', $e->getMessage());
+        }
+    }
+    
+
+    public function signin()
+    {
+        try {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $userModel = new UserModel();
+            $userData = $userModel->getUserByEmail($email);
+
+            if ($userData && password_verify($password, $userData->getPassword())) {
+                $this->handleSignInRole($userData->getRoleId(), $userData->getId());
+            } else {
+                throw new \Exception('Incorrect Email or Password');
+            }
+        } catch (\Exception $e) {
+            $this->redirectWithError('login', $e->getMessage());
+        }
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        $this->redirectWithMessage('login', 'You have been successfully logged out.');
+    }
+
+    // Helper function to get user data if logged in
+    private function getUserData()
+    {
+        if (isset($_SESSION["userId"])) {
+            $userSId = $_SESSION["userId"];
+            $userModel = new UserModel();
+            return $userModel->getUserById($userSId);
+        } else {
+            return null;
+        }
+    }
+
+    // Helper function to handle redirection with an error message
+    private function redirectWithError($location, $error)
+    {
+        $this->redirect("$location?error=" . urlencode($error));
+    }
+
+    // Helper function to handle redirection with a success message
+    private function redirectWithMessage($location, $message)
+    {
+        $this->redirect("$location?message=" . urlencode($message));
+    }
+
+    // Helper function for general redirection
+    private function redirect($location)
+    {
+        header("location: $location");
+        exit();
+    }
+
+    // Helper function to handle different roles on sign in
+    private function handleSignInRole($roleId, $userId)
+    {
+        switch ($roleId) {
+            case 1:
+                $_SESSION['isAdmin'] = true;
+                $_SESSION['userId'] = $userId;
+                $this->redirect('admin-dashboard');
+                break;
+            case 2:
+                $_SESSION['isAuthor'] = true;
+                $_SESSION['userId'] = $userId;
+                $this->redirect('home');
+                break;
+            default:
+                throw new \Exception('Invalid user role');
+        }
+    }
+}
+
+?>
