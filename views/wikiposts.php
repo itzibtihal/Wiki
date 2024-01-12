@@ -405,7 +405,7 @@
 
       results.forEach((item) => {
         const article = document.createElement("a");
-        article.href = `DetailsWikipage?id=${btoa(item.id)}`;
+        article.href = `DetailsWikipage?id=${item.id}`;
         article.className = "article d-grid";
         article.id = "data";
 
@@ -451,7 +451,7 @@
 
         const articleDescription = document.createElement("p");
         articleDescription.className = "article-description";
-        articleDescription.textContent = item.content.substring(0, 20); // Adjust as needed
+        articleDescription.textContent = item.content.substring(0, 100); // Adjust as needed
 
         dataContainer.appendChild(articleData);
         dataContainer.appendChild(articleTitle);
