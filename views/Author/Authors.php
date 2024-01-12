@@ -20,7 +20,7 @@
                 <a href="MyDash" class="list-group-item list-group-item-action bg-transparent second-text active"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
                 <a href="MyDashCreateWiki" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-book me-2 "></i>Add New Wikis</a>
-                
+
                 <a href="MyProfile" class="list-group-item list-group-item-action bg-transparent second-text "><i class="fas fa-feather me-2"></i>Author Profile</a>
 
 
@@ -59,11 +59,11 @@
                 </div>
             </nav>
 
-            
+
             <div class="container-fluid px-4">
-            <!-- <a href="addCatego" class="btn btn-dark mb-3">Add Wiki </a> -->
+                <!-- <a href="addCatego" class="btn btn-dark mb-3">Add Wiki </a> -->
                 <div class="row my-5">
-                    <h3 class="fs-4 mb-3 text-white">My  Wikis</h3>
+                    <h3 class="fs-4 mb-3 text-white">My Wikis</h3>
                     <div class="col">
                         <table class="table bg-white rounded shadow-sm  table-hover">
                             <thead>
@@ -82,7 +82,13 @@
                                         <td><?php echo $wiki->getTitle(); ?></td>
                                         <td><?php echo $wiki->getCreationDate(); ?></td>
                                         <td> <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="Wiki's picture here" width="40px"></td>
-                                        <td>NULL</td>
+                                        <td>
+                                            <form method="post" action="ArchiveWikiAuthor">
+
+                                                <input type="hidden" name="wiki_id" value="<?= $wiki->getId(); ?>">
+                                                <button type="submit" class="btn btn-primary">Archive this Wiki</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
 

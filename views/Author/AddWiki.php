@@ -109,32 +109,34 @@
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
 
-                    <form action="" method="post">
+                    <!-- <form action="" method="post">
 
                         <label for="content">After you Finish Enter Tool and Copy the Source Code</label>
                         <textarea name="textarea" id="default"></textarea>
 
-                    </form>
+                    </form> -->
 
                     <div class="form-group">
+                        <label for="content">After you Finish Enter Tool and Copy the Source Code</label>
+                        <textarea name="textarea" id="default"></textarea>
                         <label for="content"> Past the code of the Content here </label>
                         <textarea class="form-control" name="content" id="content" rows="4" required></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="tags">Tags</label>
-                        <select class="form-control" id="tags" name="tags[]" multiple required>
-                            <?php
-                            foreach ($tags as $tag) {
-                                echo "<option value='" . htmlspecialchars($tag->getName()) . "'>" . htmlspecialchars($tag->getName()) . "</option>";
-                            }
-                            ?>
+                        <select class="form-control" id="tags" name="tags[]" multiple >
+                           <?php foreach ($tags as $tag): ?>
+                                <option value="<?php echo $tag->getId(); ?>">
+                                    <?php echo $tag->getLabel(); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="categoryId">Category</label>
-                        <select class="form-control" id="categoryId" name="categoryId" required>
+                        <select class="form-control" id="categoryId" name="category_id" required>
                             <?php
                             foreach ($categories as $category) {
                                 echo "<option value='" . htmlspecialchars($category->getId()) . "'>" . htmlspecialchars($category->getName()) . "</option>";
@@ -145,7 +147,7 @@
 
                     <div class="form-group">
                         <label for="readMin">Read Time (minutes)</label>
-                        <input type="number" class="form-control" id="readMin" name="readMin" required>
+                        <input type="number" class="form-control" id="readMin" name="read_min" required>
                     </div>
 
                     <br>
@@ -180,8 +182,7 @@
                     ],
                     ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
                 });
-            </script>
-            <script>
+           
                 new MultiSelectTag('tags');
             </script>
 

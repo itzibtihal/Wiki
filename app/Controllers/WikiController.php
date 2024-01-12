@@ -6,6 +6,7 @@ use App\Entities\Category;
 use App\Entities\Wiki;
 use App\Models\WikiModel;
 use App\Models\UserModel;
+use App\Models\TagModel;
 use App\Models\CategoryModel;
 
 
@@ -21,10 +22,31 @@ class WikiController
         $this->wikiModel = new WikiModel();
         $this->userModel = new UserModel();
         $this->categoryModel = new CategoryModel();
+        $this->tagModel = new TagModel();
+    }
+
+    private function isAdminLoggedIn()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
+    private function isAuthorLoggedIn()
+    {
+        if (isset($_SESSION['isAuthor']) && $_SESSION['isAuthor'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
     }
 
     public function index()
     {
+        $this->isAdminLoggedIn();
         $userSId= $_SESSION['userId'];
         // var_dump( $userSId);
         // $userId = 2;
@@ -46,6 +68,7 @@ class WikiController
     
     public function archiveWiki()
     {
+
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $wikiId = $_POST['wiki_id'];
@@ -95,6 +118,7 @@ class WikiController
     
     public function getArchivedWikis()
     {
+        $this->isAdminLoggedIn();
         $userSId= $_SESSION['userId'];
         // var_dump( $userSId);
         // $userId = 2;
@@ -114,19 +138,22 @@ class WikiController
 
 
     public function createWiki()
-    {
+    {   
+        $this->isAuthorLoggedIn();
         try {
-            // Fetch user details
+            
             $userSId = $_SESSION['userId'];
             $existingUser = $this->userModel->getById($userSId);
+            
     
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Process the form submission
                 $title = $_POST['title'];
                 $content = $_POST['content'];
-                $readTime = $_POST['readMin'];
-                $categoryId = $_POST['categoryId'];
+                $read_min = $_POST['read_min'];
+                $category_id = $_POST['category_id'];
                 $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
+               
     
                 $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/WIKI/public/img/';
                 $uploadFile = $uploadDir . basename($_FILES['picture']['name']);
@@ -137,37 +164,35 @@ class WikiController
     
                 if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadFile)) {
                     // Create a new Wiki object
-                    $wiki = new Wiki(null, $_FILES['picture']['name'], $title, $content, $readTime, null, null, null, null, $categoryId);
+                    $wiki = new Wiki(null, $_FILES['picture']['name'], $title, $content, $read_min, null, null,'verified', $userSId, $category_id);
     
-                    // Set tags for the wiki
+                    
                     $wiki->setTags($tags);
+                    // var_dump($tags);
     
                     try {
-                        // Save the wiki with tags
+                        
                         $this->wikiModel->saveWikiWithTags($wiki);
     
-                        // Redirect to success page
-                        header("Location: success_page.php");
+                        header("Location: MyDash");
                         exit();
                     } catch (\Exception $exception) {
-                        // Handle exceptions (e.g., log the error)
+                       
                         echo "Error: " . $exception->getMessage();
                     }
                 }
             } else {
-                // Display the form
-                // Call the function to get tags and categories
+                
                 $wikiFormDetails = $this->getWikiFormDetails();
     
-                // Extract tags and categories from the returned array
+                
                 $tags = $wikiFormDetails['tags'];
                 $categories = $wikiFormDetails['categories'];
     
-                // Pass tags, categories, and user details to the view
-                require_once "../../views/Author/Addwiki.php";
+                require_once "../../views/Author/AddWiki.php";
             }
         } catch (\Exception $exception) {
-            // Handle exceptions (e.g., log the error)
+            
             echo "Error: " . $exception->getMessage();
         }
     }
@@ -175,26 +200,49 @@ class WikiController
 
     public function getWikiFormDetails()
     {
+        
         try {
-            // Fetch all tags
-            $tags = $this->tagModel ? $this->tagModel->getAllTags() : [];
+            
+            $tags = $this->tagModel ? $this->tagModel->getAll() : [];
     
-            // Fetch all categories
+            
             $categories = $this->categoryModel ? $this->categoryModel->getAll() : [];
     
-            // Return an associative array containing tags and categories
+            
             return [
                 'tags' => $tags,
                 'categories' => $categories,
             ];
         } catch (\Exception $exception) {
-            // Handle exceptions (e.g., log the error)
+            
             throw $exception;
         }
     }
 
    
-    
+    public function archiveWikiByAuthor()
+    {
+        $this->isAuthorLoggedIn();
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $wikiId = $_POST['wiki_id'];
+            
+            $existingWiki = $this->wikiModel->getById($wikiId);
+            echo $existingWiki->getId();
+
+            if (!$existingWiki) {
+                echo 'Wiki not found.';
+                return;
+            }
+            
+            $this->wikiModel->archiveWiki($existingWiki); 
+            header('location:MyDash');
+        
+            exit();
+        }
+
+        echo 'Invalid request.';
+    }
 
 
 

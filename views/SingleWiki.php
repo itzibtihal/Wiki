@@ -78,34 +78,41 @@
     </header>
 
 
-   
+
 
     <section class="blog-post section-header-offset">
         <div class="blog-post-container container">
             <div class="blog-post-data">
-            <h3 class="title blog-post-title"><?php echo $wiki->getTitle(); ?></h3>
-            <div class="article-data">
-                <span><?php echo $wiki->getCreationDate(); ?></span>
-                <span class="article-data-spacer"></span>
-                <span><?php echo $wiki->getReadMin(); ?> Min read</span>
-                <span class="article-data-spacer"></span>
-                <span><?php echo $wiki->getCategoryName(); ?></span>
+                <h3 class="title blog-post-title"><?php echo $wiki->getTitle(); ?></h3>
+                <div class="article-data">
+                    <span><?php echo $wiki->getCreationDate(); ?></span>
+                    <span class="article-data-spacer"></span>
+                    <span><?php echo $wiki->getReadMin(); ?> Min read</span>
+                    <span class="article-data-spacer"></span>
+                    <span><?php echo $wiki->getCategoryName(); ?></span>
+                </div>
+                <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="">
             </div>
-            <img src="/WIKI/public/img/<?php echo $wiki->getPicture(); ?>" alt="">
-        </div>
 
-        <div class="container">
-            <?php echo $wiki->getContent(); ?>
+            <div class="container">
+                <?php echo $wiki->getContent(); ?>
+                <p>Tags here:
+                    <?php
+                    $tagLabels = [];
+                    foreach ($wiki->getTags() as $tag) {
+                        $tagLabels[] = $tag['label'];
+                    }
+                    echo implode(', ', $tagLabels);
+                    ?>
+                </p>
 
-            <p>
-                tags here: <?php echo implode(', ', $wiki->getTags()); ?>
-            </p>
+
 
 
 
                 <div class="author d-grid">
                     <div class="author-image-box">
-                        <img src="./assets/images/author.jpg" alt="" class="article-image">
+                        <img src="/WIKI/public/img/<?php echo $user->getProfile(); ?>" alt="" class="article-image">
                     </div>
                     <div class="author-about">
                         <h3 class="author-name"><?php echo $user->getName(); ?></h3>
@@ -127,105 +134,105 @@
         </div>
     </section>
 
-    
 
-   
+
+
     <!-- Footer -->
-<footer class="footer section">
+    <footer class="footer section">
 
-<div class="footer-container container d-grid">
-    
-    <div class="company-data">
-        <a href="./index.html">
-            <h2 class="logo">WIKI</h2>
-        </a>
-        <p class="company-description"> enhance engagement by providing regular content, improve SEO, 
-            all while establishing interactive communication with the audience.</p>
-        
-        <ul class="list social-media">
-            <li class="list-item">
-                <a href="#" class="list-link"><i class="ri-instagram-line"></i></a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link"><i class="ri-facebook-circle-line"></i></a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link"><i class="ri-pinterest-line"></i></a>
-            </li>
-        </ul>
+        <div class="footer-container container d-grid">
 
-        <span class="copyright-notice">&copy;2024 WIKI.Ibtihal  All rights reserved.</span>
-    </div>
+            <div class="company-data">
+                <a href="./index.html">
+                    <h2 class="logo">WIKI</h2>
+                </a>
+                <p class="company-description"> enhance engagement by providing regular content, improve SEO,
+                    all while establishing interactive communication with the audience.</p>
 
-    <div>
-        <h6 class="title footer-title">TOP Categories</h6>
-        
-        <ul class="footer-list list">
-            <li class="list-item">
-                <a href="#" class="list-link">Travel</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Food</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Technology</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Health</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Fitness</a>
-            </li>
-        </ul>
+                <ul class="list social-media">
+                    <li class="list-item">
+                        <a href="#" class="list-link"><i class="ri-instagram-line"></i></a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link"><i class="ri-facebook-circle-line"></i></a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link"><i class="ri-pinterest-line"></i></a>
+                    </li>
+                </ul>
 
-    </div>
+                <span class="copyright-notice">&copy;2024 WIKI.Ibtihal All rights reserved.</span>
+            </div>
 
-    <div>
-        <h6 class="title footer-title">Useful links</h6>
-        
-        <ul class="footer-list list">
-            <li class="list-item">
-                <a href="#" class="list-link">Home</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">wiki Blog</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Tags</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Authors</a>
-            </li>
-        </ul>
+            <div>
+                <h6 class="title footer-title">TOP Categories</h6>
 
-    </div>
+                <ul class="footer-list list">
+                    <li class="list-item">
+                        <a href="#" class="list-link">Travel</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Food</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Technology</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Health</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Fitness</a>
+                    </li>
+                </ul>
 
-    <div>
-        <h6 class="title footer-title">Company</h6>
-        
-        <ul class="footer-list list">
-            <li class="list-item">
-                <a href="#" class="list-link">Contact us</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">F.A.Q</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Careers</a>
-            </li>
-            <li class="list-item">
-                <a href="#" class="list-link">Admin</a>
-            </li>
-        </ul>
+            </div>
 
-    </div>
+            <div>
+                <h6 class="title footer-title">Useful links</h6>
 
-</div>
+                <ul class="footer-list list">
+                    <li class="list-item">
+                        <a href="#" class="list-link">Home</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">wiki Blog</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Tags</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Authors</a>
+                    </li>
+                </ul>
 
-</footer>
+            </div>
+
+            <div>
+                <h6 class="title footer-title">Company</h6>
+
+                <ul class="footer-list list">
+                    <li class="list-item">
+                        <a href="#" class="list-link">Contact us</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">F.A.Q</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Careers</a>
+                    </li>
+                    <li class="list-item">
+                        <a href="#" class="list-link">Admin</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </footer>
 
 
-<script src="/WIKI/public/js/index.js"></script>
+    <script src="/WIKI/public/js/index.js"></script>
 </body>
 
 </html>
