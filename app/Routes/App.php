@@ -14,6 +14,7 @@ $router->setRoutes([
         'homepage' => ['HomeWikiController', 'index'],
         'homepage' => ['HomeWikiController', 'getLastWikiByCategory6'],
         'DetailsWikipage' => ['DetailsWikiController', 'index'],
+        'AllWikiSwiki' => ['AllWikisHome', 'index'],
         'Categories' => ['CategoryController', 'index'],
         'addCatego' => ['CategoryController', 'getaddCategory'],
         'updateCatego' => ['CategoryController', 'getupdateCategory'],
@@ -28,6 +29,7 @@ $router->setRoutes([
         'MyDash' => ['HomeAuthorController', 'index'],
         'MyDashCreateWiki' => ['WikiController', 'CreateWiki'],
         'MyProfile' => ['UserController', 'geteditProfil'],
+        'search-wikis' => ['AllWikisHome', 'search'],
         
     ],
 
@@ -43,6 +45,7 @@ $router->setRoutes([
         'ArchiveWiki' => ['WikiController', 'archiveWiki'],
         'verifyWiki' => ['WikiController', 'verifyWiki'],
         'UpdateProfile' => ['UserController', 'updateUser'],
+       
         
     ]
 ]);

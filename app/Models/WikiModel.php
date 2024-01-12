@@ -543,6 +543,57 @@ public function getLastSixVerifiedWikis()
 
         return $tags;
     }
+    
+    public function searchWikis($query)
+{
+    try {
+        $query = "SELECT w.*
+                  FROM $this->tableName w
+                  LEFT JOIN categories c ON w.category_id = c.id
+                  LEFT JOIN wikis_tags wt ON w.id = wt.id_wiki
+                  LEFT JOIN tags t ON wt.id_tag = t.id
+                  WHERE w.title LIKE :query 
+                     OR w.content LIKE :query 
+                     OR c.name LIKE :query 
+                     OR t.label LIKE :query 
+                     AND w.status = 'verified'";
+
+        $statement = $this->getConnection()->prepare($query);
+        $searchQuery = '%' . $query . '%';  // Remove this line
+        $statement->execute([':query' => $searchQuery]);
+
+        // Debugging: Output the query and parameters
+        var_dump($query);
+        var_dump($searchQuery);
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        
+        $wikis = [];
+
+        foreach ($results as $result) {
+            $wiki = new Wiki(
+                $result['id'],
+                $result['picture'],
+                $result['title'],
+                $result['content'],
+                $result['read_min'],
+                $result['creation_date'],
+                $result['date_deleted'],
+                $result['status'],
+                $result['user_id'],
+                $result['category_id']
+            );
+
+            $wikis[] = $wiki;
+        }
+
+        return $wikis;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return [];
+    }
+}
 
 
     // public function delete( $wiki): void
