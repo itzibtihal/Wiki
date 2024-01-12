@@ -27,6 +27,7 @@ class HomeWikiController
 
         require_once "../../views/home.php";
     }
+    
 
     public function getLastWikiByCategory6()
     {

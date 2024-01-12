@@ -4,20 +4,27 @@ namespace App\controllers;
 
 use App\Entities\Wiki;
 use App\Models\WikiModel;
+use App\Models\UserModel;
 
 
 class WikiController
 {
     private $wikiModel;
     private $tagModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->wikiModel = new WikiModel();
+        $this->userModel = new UserModel();
     }
 
     public function index()
     {
+        $userSId= $_SESSION['userId'];
+        // var_dump( $userSId);
+        // $userId = 2;
+        $existingUser = $this->userModel->getById($userSId);
         $wikis = $this->wikiModel->getAll();
         // var_dump($wikis);
         foreach ($wikis as $wiki) {
@@ -84,6 +91,10 @@ class WikiController
     
     public function getArchivedWikis()
     {
+        $userSId= $_SESSION['userId'];
+        // var_dump( $userSId);
+        // $userId = 2;
+        $existingUser = $this->userModel->getById($userSId);
         $wikis = $this->wikiModel->getAllArchived();
         foreach ($wikis as $wiki) {
             $categoryName = $this->wikiModel->getCategoryNameById($wiki->getCategoryId());
@@ -100,6 +111,10 @@ class WikiController
 
     public function createWiki()
     {
+        $userSId= $_SESSION['userId'];
+      // var_dump( $userSId);
+      // $userId = 2;
+      $existingUser = $this->userModel->getById($userSId);
         
         // $userSId= $_SESSION['userId'];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

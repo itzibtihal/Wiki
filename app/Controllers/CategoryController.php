@@ -4,23 +4,49 @@ namespace App\Controllers;
 
 use App\Entities\Category;
 use App\Models\CategoryModel;
+use App\Models\UserModel;
 
 
 
 class CategoryController
 {
     private $categoryModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->categoryModel = new CategoryModel();
+        $this->userModel = new UserModel();
+    }
+    private function isAdminLoggedIn()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
+    private function isAuthorLoggedIn()
+    {
+        if (isset($_SESSION['isAuthor']) && $_SESSION['isAuthor'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
     }
 
 
 
     public function index()
     {
-
+        $this->isAdminLoggedIn();
+        $userSId= $_SESSION['userId'];
+      // var_dump( $userSId);
+      // $userId = 2;
+      
+      $existingUser = $this->userModel->getById($userSId);
         $categories = $this->categoryModel->getAll();
       
         require_once"../../views/Admin/Categories.php";
@@ -28,11 +54,13 @@ class CategoryController
 
     public function getaddCategory()
     {
+        $this->isAdminLoggedIn();
         require_once"../../views/Admin/Categories/add.php";
     }
 
     public function getupdateCategory()
     {
+        $this->isAdminLoggedIn();
         $categoryId = $_GET['id'];
         
        
@@ -46,6 +74,7 @@ class CategoryController
 
     public function addCategory()
 {
+    $this->isAdminLoggedIn();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
         $name = $_POST['name'];
@@ -77,6 +106,7 @@ class CategoryController
 
 public function UpdateCategory()
 {
+    $this->isAdminLoggedIn();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $categoryId = $_POST['category_id'];
@@ -125,6 +155,7 @@ public function UpdateCategory()
 
     public function destroy()
 {
+    $this->isAdminLoggedIn();
    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        

@@ -18,11 +18,34 @@ class HomeAdminController
     public function __construct()
     {
         $this->wikiModel = new WikiModel();
+        $this->userModel = new UserModel();
     }
 
+    private function isAdminLoggedIn()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
+    private function isAuthorLoggedIn()
+    {
+        if (isset($_SESSION['isAuthor']) && $_SESSION['isAuthor'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
     public function index()
     {
-
+        $this->isAdminLoggedIn();
+        $userSId= $_SESSION['userId'];
+        // var_dump( $userSId);
+        // $userId = 2;
+        $existingUser = $this->userModel->getById($userSId);
         $last6Wikis = $this->wikiModel->listLast6Wikis();
         require_once "../../views/Admin/Admin.php";
     }

@@ -8,6 +8,7 @@ class HomeController
     public function index()
     {
         echo 'hello 2b || !2b';
+        echo $_SESSION['userId'];
     }
 
 

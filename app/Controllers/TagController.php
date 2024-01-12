@@ -3,18 +3,45 @@ namespace App\Controllers;
 
 use App\Entities\Tag;
 use App\Models\TagModel;
+use App\Models\UserModel;
 
 class TagController
 {
     private $tagModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->tagModel = new TagModel();
+        $this->userModel = new UserModel();
+    }
+
+    private function isAdminLoggedIn()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
+    private function isAuthorLoggedIn()
+    {
+        if (isset($_SESSION['isAuthor']) && $_SESSION['isAuthor'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
     }
 
     public function index()
     {
+        $this->isAdminLoggedIn();
+        $userSId= $_SESSION['userId'];
+        // var_dump( $userSId);
+        // $userId = 2;
+        $existingUser = $this->userModel->getById($userSId);
         $tags = $this->tagModel->getAll();
         
         require_once "../../views/Admin/Tags.php";
@@ -22,11 +49,13 @@ class TagController
 
     public function getAddTag()
     {
+        $this->isAdminLoggedIn();
         require_once "../../views/Admin/Tags/add.php";
     }
 
     public function getUpdateTag()
     {
+        $this->isAdminLoggedIn();
         $tagId = $_GET['id'];
 
         $existingTag = $this->tagModel->getById($tagId);
@@ -36,6 +65,7 @@ class TagController
 
     public function addTag()
     {
+        $this->isAdminLoggedIn();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $label = $_POST['label'];
             $id = $_POST['id'];
@@ -51,7 +81,7 @@ class TagController
 
     public function updateTag()
     {
-        
+        $this->isAdminLoggedIn();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tagId = $_POST['tag_id'];
             $existingTag = $this->tagModel->getById($tagId);
@@ -77,6 +107,7 @@ class TagController
     
     public function destroyTag()
 {
+    $this->isAdminLoggedIn();
     $tagId = isset($_POST['tag_id']) ? $_POST['tag_id'] : null;
     var_dump($tagId); 
 

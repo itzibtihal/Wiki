@@ -90,38 +90,38 @@ class AuthController
         }
     }
 
-    // Helper function to handle redirection with an error message
+    
     private function redirectWithError($location, $error)
     {
         $this->redirect("$location?error=" . urlencode($error));
     }
 
-    // Helper function to handle redirection with a success message
+    
     private function redirectWithMessage($location, $message)
     {
         $this->redirect("$location?message=" . urlencode($message));
     }
 
-    // Helper function for general redirection
+    
     private function redirect($location)
     {
         header("location: $location");
         exit();
     }
 
-    // Helper function to handle different roles on sign in
+   
     private function handleSignInRole($roleId, $userId)
     {
         switch ($roleId) {
             case 1:
                 $_SESSION['isAdmin'] = true;
                 $_SESSION['userId'] = $userId;
-                $this->redirect('admin-dashboard');
+                $this->redirect('Dashboard');
                 break;
             case 2:
                 $_SESSION['isAuthor'] = true;
                 $_SESSION['userId'] = $userId;
-                $this->redirect('home');
+                $this->redirect('MyDash');
                 break;
             default:
                 throw new \Exception('Invalid user role');

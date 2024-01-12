@@ -14,22 +14,50 @@ class UserController
         $this->userModel = new UserModel();
     }
 
+    private function isAdminLoggedIn()
+    {
+        if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
+    private function isAuthorLoggedIn()
+    {
+        if (isset($_SESSION['isAuthor']) && $_SESSION['isAuthor'] === true) {
+            return true;
+        } else {
+            header('Location: Auth');
+            exit();
+        }
+    }
+
     public function getWikiAuthors()
     {
+        $this->isAdminLoggedIn();
+        $userSId= $_SESSION['userId'];
+        // var_dump( $userSId);
+        // $userId = 2;
+        $existingUser = $this->userModel->getById($userSId);
         $users = $this->userModel->getUsersByRoleId(2);
         require_once "../../views/Admin/Authors.php";
     }
 
     public function geteditProfil()
     {
-        // $userSId= $_SESSION['userId'];
-        $userId = 2;
-        $existingUser = $this->userModel->getById($userId);
+        $this->isAuthorLoggedIn();
+        $userSId= $_SESSION['userId'];
+        // var_dump( $userSId);
+        // $userId = 2;
+        $existingUser = $this->userModel->getById($userSId);
+        // var_dump($existingUser);
         require_once "../../views/Author/Myprofil.php";
     }
 
     public function updateUser()
     {
+        $this->isAuthorLoggedIn();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // $userSId= $_SESSION['userId'];
