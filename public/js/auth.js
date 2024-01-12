@@ -19,6 +19,49 @@ signIn.addEventListener('click', () => {
     document.querySelector('.ball').classList.remove('register')
 });
 
+
+            document.getElementById('signupForm').addEventListener('submit', function(event) {
+                let hasError = false;
+
+                document.getElementById('firstNameError').textContent = '';
+                document.getElementById('lastNameError').textContent = '';
+                document.getElementById('emailError').textContent = '';
+                document.getElementById('passwordError').textContent = '';
+                document.getElementById('confirm-passwordError').textContent = '';
+                
+                let firstName = document.getElementById('first-name').value;
+                let lastName = document.getElementById('last-name').value;
+                let email = document.getElementById('email').value;
+                let password = document.getElementById('password').value;
+                let confirmPassword = document.getElementById('confirm-password').value;
+
+                if (!firstName) {
+                    document.getElementById('firstNameError').textContent = 'Please enter your first name.';
+                    hasError = true;
+                }
+                if (!lastName) {
+                    document.getElementById('lastNameError').textContent = 'Please enter your last name.';
+                    hasError = true;
+                }
+                if (!email || !email.includes('@')) {
+                    document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                    hasError = true;
+                }
+                if (password.length < 8) {
+                    document.getElementById('passwordError').textContent = 'Password must be at least 8 characters.';
+                    hasError = true;
+                }
+                if (password !== confirmPassword) {
+                    document.getElementById('confirm-passwordError').textContent = 'Passwords do not match.';
+                    hasError = true;
+                }
+
+                if (hasError) {
+                    event.preventDefault();
+                }
+            });
+        
+
 // validation form
 
 
